@@ -1,0 +1,15 @@
+
+<title>{{ meta_tags.title }}</title>
+<meta name="description" content="{{ meta_tags.description }}">
+<meta name="keywords" content="{{ meta_tags.keywords }}">
+
+<meta property="og:title" content="{{ meta_tags.title }}">
+<meta property="og:description" content="{{ meta_tags.description }}">
+
+{% if meta_tags.og_image %}
+<meta property="og:image" content="{{ meta_tags.og_image }}">
+{% endif %}
+
+{% if meta_tags.og_site_name %}
+<meta property="og:url" content="{{ meta_tags.url }}">
+{% endif %}

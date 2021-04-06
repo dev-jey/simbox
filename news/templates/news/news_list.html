@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="flex flex-col mt-12"></div>
+{% for news in object_list %}
+
+    <div class="flex flex-row mt-5">
+
+        <div class="w-12">
+            <a href="{% url 'profile' news.author.id %}">
+                <img style="height:45px" class="rounded-full" src="{{ news.author.profile.image.url }}">
+            </a>
+        </div>
+
+        <div class="flex flex-col ml-4 w-3/5 p-3 border bg-dark-800 border-dark-700 rounded">
+            <div>
+                <a class="text-green-500 font-semibold inline-block text-lg" href="{% url 'profile'  news.author.id  %}">{{ news.author.username  }}</a>
+                <small class="inline-block opacity-80 text-gray-900 dark:text-gray-200"> • ({{ news.author.groups.first }}) • {{ news.datetime_created|date:"m.d.Y - h:m a" }}</small>
+            </div>
+            <div class="text-gray-900 dark:text-gray-200 mt-3">
+                {{ news.text|safe }}
+            </div>
+        
+        </div>
+
+    </div>
+
+
+{% endfor %}
+</div>
+
+{% endblock content %}

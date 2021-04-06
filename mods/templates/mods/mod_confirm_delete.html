@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure, that you would like to delete: <b>{{ object.title }}?</b></p>
+    <p>This will delete all files associated with this mod permanently.</p>
+    <button type="submit" class="btn btn-danger" value="confirm">Yes, delete now.</button> 
+</form>
+
+{% endblock content %}

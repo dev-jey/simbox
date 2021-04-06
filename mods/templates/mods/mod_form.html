@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+<div class="flex flex-row w-full justify-center mt-14">
+    <form method="POST" enctype="multipart/form-data" class="box pb-1">
+        {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field.errors }}
+            {{ hidden_field }}
+        {% endfor %}
+
+        {{ form.non_form_errors }}
+
+        {% for field in form %}
+            {{ field.errors }}
+        {% endfor %}
+
+        <div class="bg-dark-800 px-28 py-4 rounded flex-grow">
+            <h3 class="font-semibold text-gray-200 border-b text-2xl border-gray-400 pb-2 mt-2 mb-8">1. Basic information</h3>          
+
+            <div class="my-5">
+                <label for="{{ form.title.id_for_label}}" class="block text-gray-200 text-lg">{{ form.title.label }}*</label>
+                <input type="{{ form.title.widget_type }}" 
+                name="{{ form.title.html_name }}" 
+                id="{{ form.title.auto_id }}" 
+                {% if form.title.value %} value="{{ form.title.value }}" {% endif %}
+                maxlength="120" 
+                size="40"
+                placeholder="Title of the mod..."
+                required class="rounded-lg px-3 py-3 mt-2 shadow-inner bg-gray-200 focus:outline-none">
+                {{ form.title.errors }}
+            </div>
+
+            <div class="my-5">
+                <label for="{{ form.description.id_for_label}}" class="block text-gray-200 text-lg">{{ form.description.label }}*</label>
+                <textarea name="{{ form.description.html_name }}" maxlength="10000" required id="{{ form.description.auto_id }}" cols="80" rows="6" class="rounded-lg px-3 py-3 mt-2 bg-gray-200 focus:outline-none">
+{% if form.description.value %}{{ form.description.value }}{% endif %}
+                </textarea>
+                {{ form.description.errors }}
+            </div>
+        </div>
+
+        <div class="bg-dark-800 px-28 py-4 flex-grow rounded mt-10">
+            <h3 class="font-semibold text-gray-200 border-b text-2xl border-gray-400 pb-2 mt-2 mb-8">2. Important information</h3>
+
+            <div class="my-5">
+                <label class="block text-gray-200 text-lg">{{ form.simulators.label }}*</label>
+                <div class="text-gray-200 flex flex-col">
+                    {% for option in form.simulators %}
+                        {{ option }}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="my-5">
+                <label class="block text-gray-200 text-lg">{{ form.type.label }}</label>
+                {{ form.type }}
+            </div>
+
+            <div class="my-5">
+                <h4 class="block text-gray-200 text-lg">Visibility</h4>
+                <label for="{{ form.visible.id_for_label }}" class="block text-gray-200">
+                    {{ form.visible }}
+                    {{ form.visible.label }}
+                </label>
+            </div>
+
+            <div class="my-5">
+                <h4 class="block text-gray-200 text-lg">Verified (to be removed)</h4>
+                <label for="{{ form.visible.id_for_label }}" class="block text-gray-200">
+                    {{ form.verified }}
+                    {{ form.verified.label }}
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-dark-800 px-28 py-4 flex-grow rounded mt-10">
+            <h3 class="font-semibold text-gray-200 border-b text-2xl border-gray-400 pb-2 mt-2 mb-8">3. Images and Files</h3>
+            
+            <div class="flex flex-row gap-16">
+                <div class="my-5">
+                    <h4 class="text-lg text-gray-200 mb-1">Image*</h4>
+                    <label for="{{ form.image.id_for_label }}" class="w-56 flex flex-col items-center px-4 py-3 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+                        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                        </svg>                     
+                        <span class="mt-2 text-base leading-normal">{{ form.image.label }}</span>
+                        <input type="file" name="{{ form.image.html_name }}" accept="image/*" {% if not form.image.value %} required="" {% endif %} id="{{ form.image.auto_id }}" class="hidden">
+                    </label>
+                    {% if form.image.value %}
+                        <a class="text-green-400" href="/media/{{ form.image.value }}">Current image</a>
+                    {% endif %}
+                </div>
+
+                <div class="my-5">
+                    <h4 class="text-lg text-gray-200 mb-1">Header image*</h4>
+                    <label for="{{ form.header_image.id_for_label }}" class="w-56 flex flex-col items-center px-4 py-3 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+                        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                        </svg>                     
+                        <span class="mt-2 text-base leading-normal">{{ form.header_image.label }}</span>
+                        <input type="file" name="{{ form.header_image.html_name }}" accept="image/*" {% if not form.header_image.value %} required="" {% endif %} id="{{ form.header_image.auto_id }}" class="hidden">
+                    </label>
+                    {% if form.header_image.value %}
+                        <a class="text-green-400" href="/media/{{ form.header_image.value }}">Current image</a>
+                    {% endif %}   
+                </div>
+            </div>
+
+            <div class="my-5">
+                <h4 class="text-lg text-gray-200 mb-1">Mod file*</h4>
+                <label for="{{ form.mod_file.id_for_label }}" class="w-56 flex flex-col items-center px-4 py-3 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                    </svg>                     
+                    <span class="mt-2 text-base leading-normal">{{ form.mod_file.label }}</span>
+                    <input type="file" name="{{ form.mod_file.html_name }}" {% if not form.mod_file.value %} required="" {% endif %} id="{{ form.mod_file.auto_id }}" class="hidden">
+                </label>
+                {% if form.mod_file.value %}
+                    <a class="text-green-400" href="/media/{{ form.mod_file.value }}">Current file</a>
+                {% endif %}   
+            </div>
+        </div>
+
+        <div class="bg-dark-800 px-28 py-4 flex-grow rounded mt-10 text-gray-200">
+            <h3 class="font-semibold text-gray-200 border-b text-2xl border-gray-400 pb-2 mt-2 mb-8">4. Screenshots (optional)</h3>
+
+            {{ images.management_form }}
+
+            {% for form in images %}
+            {{ form|crispy }}
+            {% endfor %}
+
+        </div>
+            
+            <button class="btn-like px-4 mt-3" type="submit">Upload Mod</button>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block content %}
+
+
+<div class="relative mt-12 justify-items-center self-center border-dark-900 shadow-xl border rounded w-8/12 overflow-hidden h-full">
+
+    <div class="absolute left-56 w-80 z-50 h-full p-5 self-center rounded">
+        <h2 class="text-white font-bold mb-3 text-xl">Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn-like px-5">Login</button>
+        </form>
+
+        <h5 class="mt-3 pt-1 border-t text-gray-50 border-dark-500 text-sm">Don't have an account yet? <a class="text-green-400" href="{% url 'register' %}">Create one now!</a></h5>
+
+    </div>
+
+    <div class="z-10 h-full rounded">
+        <video class="opacity-50" autoplay muted loop>
+            <source src="{% static  'media/bg-video.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% endblock content %}

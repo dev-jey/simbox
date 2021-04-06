@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block header_image %}
+{% include "users/snippets/profile_menu.html"%}
+{% endblock header_image %}
+
+
+{% block content %}
+
+<h2 class="pt-5 text-xl font-semibold text-gray-900 dark:text-gray-200">
+    Mods in list <span class="italic font-semibold">"{{ object_list.first }}"</span> by {{ user.username }}
+</h2>
+
+<div class="card-container sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+{% for object in object_list %}
+
+<a href="{% url 'mod-detail' object.mod_id.id %}">
+    <div class="card">
+        <img class="card-image" src="{{ object.mod_id.image.url }}" alt="">
+        <div class="p-2">
+            <span class="font-semibold">{{ object.mod_id.title|truncatechars:20 }}</span>
+        </div>
+        <div class="card-badge">
+            <span>{{ object.mod_id.type }}</span>
+        </div>
+    </div>
+</a>
+
+{% endfor %}
+</div>
+
+
+{% endblock content %}
