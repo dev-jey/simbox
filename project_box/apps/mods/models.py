@@ -123,7 +123,7 @@ class ModsListName(models.Model):
 
 class ModsListConnector(models.Model):
     '''
-    Model that connects mods to lists and vice versa. 
+    Model that connects mods to lists and vice versa.
     Users are also connected to lists here.
     '''
     list_id = models.ForeignKey(ModsListName, on_delete=models.CASCADE)

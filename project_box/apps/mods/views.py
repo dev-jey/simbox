@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.db import transaction
 
-from mixins.template import HeaderMixin
+from project_box.apps.mixins.template import HeaderMixin
 
 from .forms import (
     AddModToListForm,
@@ -113,7 +113,8 @@ class ModsDetailView(LoginRequiredMixin, HeaderMixin, DetailView):
                 obj.user_id = user
                 obj.save()
 
-                return JsonResponse({'message': f'{mod.title} has been added to list "{obj.list_id.list_name}"'}, status=200)
+                return JsonResponse(
+                    {'message': f'{mod.title} has been added to list "{obj.list_id.list_name}"'}, status=200)
 
         # Add or delete like
         elif (ajax_data.get('action') == 'like'):
@@ -137,7 +138,7 @@ class ModsDetailView(LoginRequiredMixin, HeaderMixin, DetailView):
                 obj.save()
 
                 return JsonResponse({'message': 'Comment has been saved.'}, status=200)
-        
+
         # Delete comment
         elif (ajax_data.get('action') == 'delete-comment'):
             comment = ModComments.objects.filter(id=ajax_data.get('comment')).first()

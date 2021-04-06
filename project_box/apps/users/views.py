@@ -9,9 +9,9 @@ from django.contrib import messages
 from django.views.generic import DetailView, ListView, UpdateView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
-from mixins.template import HeaderMixin
+from project_box.apps.mixins.template import HeaderMixin
 
-from mods.models import Mod, ModsListConnector, ModsListName, ModsLike
+from project_box.apps.mods.models import Mod, ModsListConnector, ModsListName, ModsLike
 
 
 def register(request):
@@ -47,7 +47,7 @@ class ProfileView(LoginRequiredMixin, HeaderMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         context['list_names'] = ModsListName.objects.filter(
-                list_owner=User.objects.get(id=self.get_object().id)
+            list_owner=User.objects.get(id=self.get_object().id)
         )
 
         context['likes'] = ModsLike.objects.filter(
@@ -72,7 +72,7 @@ class ProfileModsView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         context['mods'] = Mod.objects.filter(
-                author=User.objects.get(pk=self.get_object().id)
+            author=User.objects.get(pk=self.get_object().id)
         )
 
         return context

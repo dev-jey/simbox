@@ -3,10 +3,11 @@ from django.forms.models import inlineformset_factory
 from .models import Mod, ModsListName, ModComments, ModsGallery, Simulator
 from tinymce.widgets import TinyMCE
 
+
 class AddModToListForm(forms.ModelForm):
     list_name = forms.ModelChoiceField(
         queryset=ModsListName.objects.all()
-        )
+    )
 
     def __init__(self, *args, **kwargs):
         super(AddModToListForm, self).__init__(*args, **kwargs)

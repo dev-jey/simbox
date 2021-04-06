@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from django_countries.fields import CountryField
-from mods.models import Mod
+from project_box.apps.mods.models import Mod
 
 
 class Profile(models.Model):
@@ -11,7 +11,7 @@ class Profile(models.Model):
     country = CountryField(blank=True)
     bio = models.TextField(max_length=2000, blank=True, null=True)
     twitter = models.CharField(max_length=25, blank=True, help_text='Enter your Twitter username. NOT the link.')
-    simulators = models.ManyToManyField(Mod, null=True)
+    simulators = models.ManyToManyField(Mod)
     image = models.ImageField(default='default.jpg', upload_to='profile')
     header_image = models.ImageField(default='default.jpg', upload_to='profile/header/')
 

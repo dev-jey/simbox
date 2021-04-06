@@ -1,4 +1,4 @@
-from mods.models import Mod
+from project_box.apps.mods.models import Mod
 from rest_framework import serializers
 
 

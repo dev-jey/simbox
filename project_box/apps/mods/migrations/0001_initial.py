@@ -5,7 +5,7 @@ import django.contrib.auth.models
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
-import mods.validators
+from project_box.apps.mods import validators
 import tinymce.models
 
 
@@ -23,10 +23,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=120)),
-                ('image', models.ImageField(help_text='Allowed format: PNG. Max. size: 4MB', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['png']), mods.validators.validate_file_size_4mb])),
-                ('header_image', models.ImageField(help_text='Allowed format: PNG. Max. size: 4MB', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['png']), mods.validators.validate_file_size_4mb])),
+                ('image', models.ImageField(help_text='Allowed format: PNG. Max. size: 4MB', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['png']), validators.validate_file_size_4mb])),
+                ('header_image', models.ImageField(help_text='Allowed format: PNG. Max. size: 4MB', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['png']), validators.validate_file_size_4mb])),
                 ('description', tinymce.models.HTMLField(max_length=10000)),
-                ('mod_file', models.FileField(help_text='Please upload a .zip file. Current max. size: 10Mb.', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['zip']), mods.validators.validate_file_size_10mb])),
+                ('mod_file', models.FileField(help_text='Please upload a .zip file. Current max. size: 10Mb.', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['zip']), validators.validate_file_size_10mb])),
                 ('mod_file_size', models.FloatField(blank=True)),
                 ('datetime_created', models.DateTimeField(auto_now_add=True)),
                 ('datetime_updated', models.DateTimeField(auto_now=True)),

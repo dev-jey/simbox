@@ -53,7 +53,7 @@ def mod_file_handler(sender, instance, created, **kwargs):
         filename = f"{slugify(instance.title)}_{str(filename)}.zip"
         os.rename(instance.mod_file.path, os.path.join(mod_file_folder, filename))
         instance.mod_file = f"mods/{str(instance.id)}/files/{filename}"
-        instance.mod_file_size = os.path.getsize(os.path.join(mod_file_folder, filename)) 
+        instance.mod_file_size = os.path.getsize(os.path.join(mod_file_folder, filename))
 
         QuerySet(instance).filter(pk=instance.pk).update(
             mod_file=instance.mod_file,
@@ -64,7 +64,7 @@ def mod_file_handler(sender, instance, created, **kwargs):
         filename = f"{slugify(instance.title)}_{str(filename)}.zip"
         os.rename(instance.mod_file.path, os.path.join(mod_file_folder, filename))
         instance.mod_file = f"mods/{str(instance.id)}/files/{filename}"
-        instance.mod_file_size = os.path.getsize(os.path.join(mod_file_folder, filename)) 
+        instance.mod_file_size = os.path.getsize(os.path.join(mod_file_folder, filename))
 
         QuerySet(instance).filter(pk=instance.pk).update(
             mod_file=instance.mod_file,
@@ -111,6 +111,6 @@ def screenshot_file_delete(sender, instance, **kwargs):
 
 
 def random_digits(n):
-    range_start = 10**(n-1)
-    range_end = (10**n)-1
+    range_start = 10**(n - 1)
+    range_end = (10**n) - 1
     return randint(range_start, range_end)

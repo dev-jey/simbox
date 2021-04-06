@@ -20,9 +20,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from users import views as user_views
-from news.views import NewsListView
-from mods.views import (
+from project_box.apps.users import views as user_views
+from project_box.apps.news.views import NewsListView
+from project_box.apps.mods.views import (
     ModsDetailView,
     ModsListView,
     CreateModView,
@@ -56,7 +56,7 @@ urlpatterns = [
     path('mods/', ModsListView.as_view(), name='mods-list'),
 
     # API
-    path('api/', include('api.urls')),
+    path('api/', include('project_box.apps.api.urls')),
 
     # Misc
     path('tinymce/', include('tinymce.urls')),
