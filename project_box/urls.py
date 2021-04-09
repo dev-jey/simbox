@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('', include(('project_box.apps.users.urls',
                       'users'), namespace='users')),
+    path('', include(('project_box.apps.mods.urls',
+                      'mods'), namespace='mods')),
 
     # Profile links
     path('profile/<str:username>/', user_views.ProfileView.as_view(), name='profile'),
@@ -45,12 +47,6 @@ urlpatterns = [
     path('settings/', user_views.ProfileUpdate.as_view(), name='profile-update'),
     path('settings/security/', user_views.ProfileUpdatePassword.as_view(), name='profile-update-security'),
 
-    # Mods link
-    path('mod/<int:pk>/', ModsDetailView.as_view(), name='mod-detail'),
-    path('mod/upload/', CreateModView.as_view(), name='create-mod'),
-    path('mod/<int:pk>/update/', EditModView.as_view(), name='edit-mod'),
-    path('mod/<int:pk>/delete/', DeleteModView.as_view(), name='delete-mod'),
-    path('mods/', ModsListView.as_view(), name='mods-list'),
 
     # API
     path('api/', include('project_box.apps.api.urls')),

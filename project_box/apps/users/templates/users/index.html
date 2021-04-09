@@ -1,12 +1,14 @@
 {% extends 'base.html' %} 
 {% block maincontent %} 
 {% load static %}
+{% if not user.is_authenticated %}
 {% include 'users/snippets/slider.html'%} 
+{%endif%}
 <!-- MainContent -->
 <div class="main-content">
-  {%include 'users/snippets/latest_mods.html'%} 
   {%include 'users/snippets/most_downloaded.html'%} 
-  {%include 'users/snippets/suggested.html'%}
+  {%include 'users/snippets/latest_mods.html'%} 
+  {% comment %} {%include 'users/snippets/suggested.html'%} {% endcomment %}
   {%include 'users/snippets/featured.html'%}
 </div>
 

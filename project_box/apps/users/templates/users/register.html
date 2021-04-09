@@ -16,6 +16,7 @@
           <div class="sign-in-page-data">
             <div class="sign-in-from w-100 m-auto">
               <form class="" method="post">
+              <br>
                   {% csrf_token %} 
                   {{ form|crispy }}
                 <button type="submit" class="btn btn-hover my-2">
