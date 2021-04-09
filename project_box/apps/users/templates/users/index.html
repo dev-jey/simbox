@@ -1,11 +1,13 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-<div class="jumbotron">
-    <h1>Hey hi!</h1>
-    <p>Nothing to do here yet.</p>
-    <p>Pused with git</p>
+{% extends 'base.html' %} 
+{% block maincontent %} 
+{% load static %}
+{% include 'users/snippets/slider.html'%} 
+<!-- MainContent -->
+<div class="main-content">
+  {%include 'users/snippets/latest_mods.html'%} 
+  {%include 'users/snippets/most_downloaded.html'%} 
+  {%include 'users/snippets/suggested.html'%}
+  {%include 'users/snippets/featured.html'%}
 </div>
 
-{% endblock content %}
+{%endblock%}

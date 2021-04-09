@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,9 +30,12 @@ from project_box.apps.mods.views import (
 
 import debug_toolbar
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', NewsListView.as_view(), name='index'),
+
+    path('', include(('project_box.apps.users.urls',
+                      'users'), namespace='users')),
 
     # Profile links
     path('profile/<str:username>/', user_views.ProfileView.as_view(), name='profile'),
@@ -43,10 +44,6 @@ urlpatterns = [
 
     path('settings/', user_views.ProfileUpdate.as_view(), name='profile-update'),
     path('settings/security/', user_views.ProfileUpdatePassword.as_view(), name='profile-update-security'),
-
-    path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('register/', user_views.register, name='register'),
 
     # Mods link
     path('mod/<int:pk>/', ModsDetailView.as_view(), name='mod-detail'),
