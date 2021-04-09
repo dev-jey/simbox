@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block maincontent %} 
+{% load static %}
+{% if not user.is_authenticated %}
+{% include 'components/mods/slider.html'%} 
+{%endif%}
+<!-- MainContent -->
+<div class="main-content">
+  <br><br><br>
+  {%include 'components/mods/most_downloaded.html'%} 
+  {%include 'components/mods/latest_mods.html'%} 
+  {% comment %} {%include 'components/mods/suggested.html'%} {% endcomment %}
+  {%include 'components/mods/featured.html'%}
+</div>
+
+{%endblock%}

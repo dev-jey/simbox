@@ -22,7 +22,7 @@ urlpatterns = [
 
     path(
         'login/',
-        LoginView.as_view(template_name='users/login.html'), name='login'),
+        LoginView.as_view(template_name='components/user/login.html'), name='login'),
     path(
         'signup/', register, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),

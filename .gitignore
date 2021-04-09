@@ -122,5 +122,5 @@ datapase.png
 static/css/**
 !static/css/style.min.css
 !static/media/**
-static_collected/
+staticfiles/
 

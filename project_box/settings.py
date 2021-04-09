@@ -42,10 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'project_box.apps.users',
     'project_box.apps.mods',
-    'project_box.apps.news',
-    'project_box.apps.api',
     'crispy_forms',
-    'crispy_tailwind',
     'tinymce',
     'rest_framework',
     'django_extensions',
@@ -130,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -139,8 +136,7 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'
-CRISPY_TEMPLATE_PACK = 'tailwind'
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'

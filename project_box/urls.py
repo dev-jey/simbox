@@ -19,14 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from project_box.apps.users import views as user_views
-from project_box.apps.news.views import NewsListView
-from project_box.apps.mods.views import (
-    ModsDetailView,
-    ModsListView,
-    CreateModView,
-    EditModView,
-    DeleteModView,
-)
 
 import debug_toolbar
 
@@ -36,8 +28,8 @@ urlpatterns = [
 
     path('', include(('project_box.apps.users.urls',
                       'users'), namespace='users')),
-    path('', include(('project_box.apps.mods.urls',
-                      'mods'), namespace='mods')),
+    path('mod/', include(('project_box.apps.mods.urls',
+                          'mods'), namespace='mods')),
 
     # Profile links
     path('profile/<str:username>/', user_views.ProfileView.as_view(), name='profile'),
@@ -47,9 +39,6 @@ urlpatterns = [
     path('settings/', user_views.ProfileUpdate.as_view(), name='profile-update'),
     path('settings/security/', user_views.ProfileUpdatePassword.as_view(), name='profile-update-security'),
 
-
-    # API
-    path('api/', include('project_box.apps.api.urls')),
 
     # Misc
     path('tinymce/', include('tinymce.urls')),
