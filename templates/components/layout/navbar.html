@@ -224,7 +224,7 @@
                                 </div>
                               </div>
                             </a>
-                            <a
+                            {% comment %} <a
                               href="pricing-plan.html"
                               class="iq-sub-card setting-dropdown"
                             >
@@ -238,9 +238,9 @@
                                   <h6 class="mb-0">Pricing Plan</h6>
                                 </div>
                               </div>
-                            </a>
+                            </a> {% endcomment %}
                             <a
-                              href="login.html"
+                              href="{% url 'authentication:logout'%}"
                               class="iq-sub-card setting-dropdown"
                             >
                               <div class="media align-items-center">
@@ -386,7 +386,7 @@
                             </div>
                           </div>
                         </a>
-                        <a
+                        {% comment %} <a
                           href="pricing-plan.html"
                           class="iq-sub-card setting-dropdown"
                         >
@@ -398,8 +398,8 @@
                               <h6 class="my-0">Pricing Plan</h6>
                             </div>
                           </div>
-                        </a>
-                        <a href="/logout" class="iq-sub-card setting-dropdown">
+                        </a> {% endcomment %}
+                        <a href="{% url 'authentication:logout'%}" class="iq-sub-card setting-dropdown">
                           <div class="media align-items-center">
                             <div class="right-icon">
                               <i class="ri-logout-circle-line text-primary"></i>

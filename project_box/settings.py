@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['51.195.107.145', 'localhost', '127.0.0.1']
-
+SITE_ID = 1
 
 # Application definition
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'project_box.apps.users',
+    'django.contrib.sites',
+    'project_box.apps.authentication',
     'project_box.apps.mods',
     'crispy_forms',
     'tinymce',
@@ -144,8 +145,8 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+AUTH_USER_MODEL = "authentication.User"
 
-LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']

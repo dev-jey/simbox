@@ -1,9 +1,8 @@
 {% extends 'base.html' %} 
 {% block maincontent %} 
 {% load static %}
-{% if not user.is_authenticated %}
 {% include 'components/mods/slider.html'%} 
-{%endif%}
+
 <!-- MainContent -->
 <div class="main-content">
   <br><br><br>
@@ -12,5 +11,7 @@
   {% comment %} {%include 'components/mods/suggested.html'%} {% endcomment %}
   {%include 'components/mods/featured.html'%}
 </div>
+
+ {%include 'components/layout/footer.html'%} 
 
 {%endblock%}

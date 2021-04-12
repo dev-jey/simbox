@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from project_box.apps.authentication.models import User
 from django.core.validators import FileExtensionValidator
 from django.db.models.fields.related import ForeignKey
 # from tinymce.models import HTMLField
@@ -15,19 +15,19 @@ class ModsType(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.type
+        return self.name
 
 
 class Mod(models.Model):
     title = models.CharField(max_length=120)
     image = models.ImageField(
         blank=False,
-        validators=[FileExtensionValidator(allowed_extensions=['png']), validate_file_size_4mb],
+        validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg']), validate_file_size_4mb],
         help_text="Allowed format: PNG. Max. size: 4MB"
     )
     header_image = models.ImageField(
         blank=False,
-        validators=[FileExtensionValidator(allowed_extensions=['png']), validate_file_size_4mb],
+        validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg']), validate_file_size_4mb],
         help_text="Allowed format: PNG. Max. size: 4MB"
     )
     description = models.TextField(max_length=10000)
@@ -48,7 +48,6 @@ class Mod(models.Model):
     author = models.ForeignKey(
         User,
         null=True,
-        default=User,
         on_delete=models.PROTECT)
     type = models.ForeignKey(ModsType, null=True, on_delete=models.SET_NULL)
 

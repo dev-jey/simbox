@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block maincontent %} 
+{% load static %}
+<!-- MainContent -->
+<div class="main-content container-fluid">
+  <h3>{{message}}</h3>
+  <br><br>
+  <p>Email verification enables us to secure your account and verify that you are the <br>
+  true owner trying to use the given email. Thank you, and enjoy using our services. Click the <br>
+  button below to login to your account.
+  <div class="sign-info">
+    <a href="{% url 'authentication:login' %}" class="btn btn-hover">Login</a>
+  </div>
+</div>
+
+{%endblock%}
