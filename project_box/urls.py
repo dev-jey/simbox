@@ -30,16 +30,6 @@ urlpatterns = [
                       'users'), namespace='users')),
     path('mod/', include(('project_box.apps.mods.urls',
                           'mods'), namespace='mods')),
-
-    # Profile links
-    path('profile/<str:username>/', user_views.ProfileView.as_view(), name='profile'),
-    path('profile/<str:username>/mods/', user_views.ProfileModsView.as_view(), name='profile-mods'),
-    path('profile/<str:username>/list/<int:pk>/', user_views.ProfileListsView.as_view(), name='profile-list-detail'),
-
-    path('settings/', user_views.ProfileUpdate.as_view(), name='profile-update'),
-    path('settings/security/', user_views.ProfileUpdatePassword.as_view(), name='profile-update-security'),
-
-
     # Misc
     path('tinymce/', include('tinymce.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
