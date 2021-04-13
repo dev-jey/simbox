@@ -31,23 +31,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <div class="menu-main-menu-container">
                 <ul id="top-menu" class="navbar-nav ml-auto">
+                {%if user.is_authenticated%}
                   <li class="menu-item">
-                    <a href="/">Home</a>
+                    <a href="{% url 'authentication:index' %}">Upload Mod</a>
                   </li>
+                  {%endif%}
                   <li class="menu-item">
-                    <a href="/mods">Mods</a>
+                    <a href="{% url 'mods:mods-list' %}">All Mods</a>
                   </li>
 
                   <li class="menu-item">
                     <a href="#">Categories</a>
                     <ul class="sub-menu">
                       <li class="menu-item">
-                        <a href="about-us.html">P3D</a>
+                        <a href="{% url 'mods:category' 1 %}">P3D</a>
                       </li>
                       <li class="menu-item">
-                        <a href="contact.html">MSFS</a>
+                        <a href="{% url 'mods:category' 1 %}">MSFS</a>
                       </li>
-                      <li class="menu-item"><a href="faq.html">X-Plane</a></li>
+                      <li class="menu-item"><a href="{% url 'mods:category' 1 %}">X-Plane</a></li>
                     </ul>
                   </li>
 
@@ -96,6 +98,8 @@
               >
                 <i class="ri-more-line"></i>
               </a>
+
+                            {%if user.is_authenticated%}
               <div class="more-menu" aria-labelledby="dropdownMenuButton">
                 <div class="navbar-right position-relative">
                   <ul
@@ -118,7 +122,7 @@
                         </form>
                       </div>
                     </li>
-                    <li class="nav-item nav-icon">
+                    {% comment %} <li class="nav-item nav-icon">
                       <a href="#" class="search-toggle position-relative">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +185,7 @@
                           </div>
                         </div>
                       </div>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                       <a
                         href="#"
@@ -197,7 +201,7 @@
                         <div class="iq-card shadow-none m-0">
                           <div class="iq-card-body p-0 pl-3 pr-3">
                             <a
-                              href="manage-profile.html"
+                              href="{% url 'authentication:profile' %}"
                               class="iq-sub-card setting-dropdown"
                             >
                               <div class="media align-items-center">
@@ -210,17 +214,32 @@
                               </div>
                             </a>
                             <a
-                              href="setting.html"
+                              href="{% url 'authentication:profile-mods' user.username %}"
                               class="iq-sub-card setting-dropdown"
                             >
                               <div class="media align-items-center">
                                 <div class="right-icon">
                                   <i
-                                    class="ri-settings-4-line text-primary"
+                                    class="ri-upload-cloud-line text-primary"
                                   ></i>
                                 </div>
                                 <div class="media-body ml-3">
-                                  <h6 class="mb-0">Settings</h6>
+                                  <h6 class="mb-0">Upload Mod</h6>
+                                </div>
+                              </div>
+                            </a>
+                            <a
+                              href="{% url 'authentication:profile-mods' user.username %}"
+                              class="iq-sub-card setting-dropdown"
+                            >
+                              <div class="media align-items-center">
+                                <div class="right-icon">
+                                  <i
+                                    class="ri-at-fill text-primary"
+                                  ></i>
+                                </div>
+                                <div class="media-body ml-3">
+                                  <h6 class="mb-0">My Mods</h6>
                                 </div>
                               </div>
                             </a>
@@ -261,6 +280,7 @@
                   </ul>
                 </div>
               </div>
+              {%endif%}
             </div>
             <div class="navbar-right menu-right">
               <ul class="d-flex align-items-center list-inline m-0">
@@ -283,7 +303,7 @@
                 </li>
 
                 {% if user.is_authenticated %}
-                <li class="nav-item nav-icon">
+                {% comment %} <li class="nav-item nav-icon">
                   <a href="#" class="search-toggle" data-toggle="search-toggle">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -344,7 +364,7 @@
                       </div>
                     </div>
                   </div>
-                </li>
+                </li> {% endcomment %}
                 <li class="nav-item nav-icon">
                   <a
                     href="#"
@@ -361,7 +381,7 @@
                     <div class="iq-card shadow-none m-0">
                       <div class="iq-card-body p-0 pl-3 pr-3">
                         <a
-                          href="manage-profile.html"
+                          href="{% url 'authentication:profile' %} "
                           class="iq-sub-card setting-dropdown"
                         >
                           <div class="media align-items-center">
@@ -374,15 +394,28 @@
                           </div>
                         </a>
                         <a
-                          href="setting.html"
+                          href="{% url 'authentication:profile-mods' user.username %}"
                           class="iq-sub-card setting-dropdown"
                         >
                           <div class="media align-items-center">
                             <div class="right-icon">
-                              <i class="ri-settings-4-line text-primary"></i>
+                              <i class="ri-upload-cloud-line text-primary"></i>
                             </div>
                             <div class="media-body ml-3">
-                              <h6 class="my-0">Settings</h6>
+                              <h6 class="my-0">Upload Mod</h6>
+                            </div>
+                          </div>
+                        </a>
+                        <a
+                          href="{% url 'authentication:profile-mods' user.username %}"
+                          class="iq-sub-card setting-dropdown"
+                        >
+                          <div class="media align-items-center">
+                            <div class="right-icon">
+                              <i class="ri-at-fill text-primary"></i>
+                            </div>
+                            <div class="media-body ml-3">
+                              <h6 class="my-0">My Mods</h6>
                             </div>
                           </div>
                         </a>

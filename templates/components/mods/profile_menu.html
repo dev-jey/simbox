@@ -1,8 +1,0 @@
-<div class="w-full bg-center h-96" style="background-image:url('{{ object.profile.header_image.url }}'); background-repeat:no-repeat; background-size:cover;"></div>
-
-<div class="w-100 flex flex-row items-center shadow-sm bg-white dark:bg-dark-800 md:py sm:px-4 md:px-8 lg:px-16 xl:px-80">
-    <div class="grid grid-cols-2 justify-items-center">
-        <a class="p-3 pr-3 text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-900" href="{% url 'profile' object.username %}">Profile</a>
-        <a class="p-3 text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-900" href="{% url 'profile-mods' object.username %}">Uploads</a>
-    </div>
-</div>

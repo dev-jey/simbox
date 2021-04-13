@@ -88,3 +88,23 @@ class VerifyAPIView(TemplateView):
         context['user'] = self.request.user
         context['message'] = message
         return context
+
+
+class ProfileAPIView(TemplateView):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['user'] = self.request.user
+        return context
+
+
+class ProfileModsAPIView(TemplateView):
+    template_name = 'usermods.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['user'] = self.request.user
+        return context

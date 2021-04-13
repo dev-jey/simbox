@@ -23,7 +23,7 @@ urlpatterns = [
 
     path('', include(('project_box.apps.authentication.urls',
                       'authentication'), namespace='authentication')),
-    path('mod/', include(('project_box.apps.mods.urls',
+    path('mods/', include(('project_box.apps.mods.urls',
                           'mods'), namespace='mods')),
     # Misc
     path('tinymce/', include('tinymce.urls')),

@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en-US">
-  <!-- Mirrored from iqonic.design/themes/streamitnew/frontend/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Apr 2021 04:37:06 GMT -->
   <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8" />
@@ -24,7 +23,10 @@
     <div id="loading">
       <div id="loading-center"></div>
     </div>
-    {%include 'components/layout/navbar.html'%} {% block maincontent %} {%endblock%}
+    {%include 'components/layout/navbar.html'%} 
+    <div>
+    {% block maincontent %} {%endblock%}
+    </div>
 
     <!-- MainContent End-->
     <!-- back-to-top -->

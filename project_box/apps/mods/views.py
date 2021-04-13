@@ -8,18 +8,8 @@ from django.views.generic.base import TemplateView
 
 
 
-from .models import (
-    Mod,
-)
-
-
 class ModDetailView(TemplateView):
-    model = Mod
-    template_name = 'mods/mod_details.html'
-
-    title = '<title>'
-    description = 'Download <title> now for your flight simulator!'
-    og_image = '<image><url>'
+    template_name = 'components/mods/singlemod.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,5 +26,19 @@ class ModDetailView(TemplateView):
         return ip
 
 
-class ModsListView(ListView):
-    model = Mod
+class ModsListView(TemplateView):
+    template_name = 'components/mods/allmods.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+
+class CategoryView(TemplateView):
+    template_name = 'components/mods/category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context

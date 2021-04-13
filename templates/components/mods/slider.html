@@ -100,11 +100,11 @@
                 data-animation-in="fadeInUp"
                 data-delay-in="1.2"
               >
-                <a href="/mod/1" class="btn btn-hover iq-button"
+                <a href="{% url 'mods:mod-detail' 1 %}" class="btn btn-hover iq-button"
                   ><i class="fa fa-play mr-2" aria-hidden="true"></i>Download
                   Now</a
                 >
-                <a href="/mod/1" class="btn btn-link"
+                <a href="{% url 'mods:mod-detail' 1 %}" class="btn btn-link"
                   >More details</a
                 >
               </div>

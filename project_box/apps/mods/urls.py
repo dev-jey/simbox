@@ -5,6 +5,7 @@ URL configurations for the terms application.
 """
 from django.urls import path
 from .views import (
+    CategoryView,
     ModDetailView,
     # CreateModView,
     # EditModView,
@@ -18,6 +19,7 @@ app_name = "mods"
 urlpatterns = [
     # Mods link
     path(f'<int:pk>/', ModDetailView.as_view(), name='mod-detail'),
+    path(f'category/<int:pk>/', CategoryView.as_view(), name='category'),
     # path(f'upload/', CreateModView.as_view(), name='create-mod'),
     # path(f'<int:pk>/update/', EditModView.as_view(), name='edit-mod'),
     # path(f'<int:pk>/delete/', DeleteModView.as_view(), name='delete-mod'),
