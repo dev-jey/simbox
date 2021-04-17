@@ -90,7 +90,7 @@ class VerifyAPIView(TemplateView):
         return context
 
 
-class ProfileAPIView(TemplateView):
+class ProfileAPIView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):

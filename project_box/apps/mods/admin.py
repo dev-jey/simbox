@@ -1,25 +1,22 @@
 from django.contrib import admin
 from .models import (
     Mod,
-    ModsType,
-    ModComments,
-    ModsDownloadsCounter
+    Type,
+    Comment,
+    Download
 )
 
 
 class ModAdmin(admin.ModelAdmin):
-    exclude = ("mod_file_size",)
     list_display = (
         'id',
         'title',
         'visible',
         'verified',
-        'author',
-        'datetime_created',
-        'datetime_updated'
+        'created_at',
+        'updated_at'
     )
     search_fields = ['title']
-    readonly_fields = ["author"]
 
     def save_model(self, request, obj, form, change):
         if not obj.id:
@@ -30,29 +27,25 @@ class ModAdmin(admin.ModelAdmin):
         model = Mod
 
 
-
 class ModCommentsAdmin(admin.ModelAdmin):
-    model = ModComments
+    model = Comment
     search_fields = ['user_id__username']
     list_display = (
-        "user_id",
-        "mod_id",
         "visible",
-        "datetime_created",
-        "datetime_updated"
+        "created_at",
+        "updated_at"
     )
 
 
 class ModsDownloadsCounterAdmin(admin.ModelAdmin):
-    model = ModsDownloadsCounter
+    model = Download
     list_display = (
-        "mod_id",
-        "IPAddress",
-        "datetime_created"
+        "ip_address",
+        "created_at"
     )
 
 
 admin.site.register(Mod, ModAdmin)
-admin.site.register(ModsType)
-admin.site.register(ModComments, ModCommentsAdmin)
-admin.site.register(ModsDownloadsCounter, ModsDownloadsCounterAdmin)
+admin.site.register(Type)
+admin.site.register(Comment, ModCommentsAdmin)
+admin.site.register(Download, ModsDownloadsCounterAdmin)

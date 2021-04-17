@@ -14,7 +14,7 @@ from .views import (
 )
 
 # Specify a namespace
-app_name = "users"
+app_name = "authentication"
 
 
 urlpatterns = [

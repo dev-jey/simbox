@@ -144,7 +144,7 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'login'
+LOGIN_URL = 'authentication:login'
 AUTH_USER_MODEL = "authentication.User"
 
 

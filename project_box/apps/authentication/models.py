@@ -1,11 +1,11 @@
 import jwt
-
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
+from project_box.apps.mods.models import Mod
 
 
 class UserManager(BaseUserManager):
@@ -87,8 +87,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     # A timestamp reprensenting when this object was last updated.
     updated_at = models.DateTimeField(auto_now=True)
 
-    # Id for users a user is following
-    following = models.ManyToManyField('User', related_name='followers')
+    # User mods
+    mods = models.ManyToManyField(Mod, related_name='user_mods')
+    # User comments
+    comments = models.ManyToManyField(Mod, related_name='user_comments')
 
     # A boolean field wheteher a user wants notofications or not
     get_notifications = models.BooleanField(default=True)
