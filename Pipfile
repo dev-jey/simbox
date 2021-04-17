@@ -32,6 +32,8 @@ Pillow = "==8.1.0"
 django-debug-toolbar = "*"
 psycopg2 = "*"
 pyjwt = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 

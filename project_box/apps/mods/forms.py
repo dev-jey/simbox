@@ -3,12 +3,17 @@ from .models import Mod
 
 
 class ModCreateForm(forms.ModelForm):
-    title = forms.CharField(required=True, label='Mod Name')
-    description = forms.CharField(required=True, label='Description')
-    image = forms.ImageField(required=True, label='Image')
-    cover_image = forms.ImageField(required=True, label='Cover Image')
-    mod_file = forms.FileField(required=True)
-
     class Meta:
         model = Mod
-        fields = ['title', 'description','image','cover_image', 'mod_file']
+        fields = ['title', 'description', 'image', 'cover_image', 'mod_file']
+        exclude = ('user',)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(ModCreateForm, self).__init__(*args, **kwargs)
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Mod.objects.filter(title=title).exists():
+            raise forms.ValidationError("A mod with this title already exists.")
+        return title
