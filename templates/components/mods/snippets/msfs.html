@@ -1,36 +1,40 @@
-{% extends 'base.html' %} {% block maincontent %} {% load static %}
-<div class="top-split" style="padding:150px 0">
-
-{% include 'components/mods/snippets/msfs.html' %}
-{% include 'components/mods/snippets/p3d.html' %}
-{% include 'components/mods/snippets/x-plane.html' %}
-
-
-<section class="main-content container-fluid">
-          <h4 class="main-title">All Mods</h4>
- <div class="block-space">
-          <div class="row">
-          {%for mod in mods%}
-            <div class="col-md-3 col-sm-12 iq-mb-30">
+{% load static %}
+<section id="iq-upcoming-movie mt-8">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 overflow-hidden">
+        <div
+          class="iq-main-header d-flex align-items-center justify-content-between"
+        >
+          <h4 class="main-title">Top MSFS Mods</h4>
+          <a class="iq-view-all" href="{% url 'mods:category' msfs.id %}">View All</a>
+        </div><br><br>
+        <div class="upcoming-contens">
+          <ul class="favorites-slider list-inline row p-0 mb-0">
+            {% for mod in msfs_mods %}
+            <li class="slide-item">
               <div class="block-images position-relative">
                 <div class="img-box">
                   <img
-                    src="{{mod.image.url}}"
+                    src="{{ mod.image.url }}"
                     class="img-fluid"
-                    alt="{{mod.title}}"
+                    alt=""
                   />
                 </div>
-                
                 <div class="block-description">
                   <h6 class="iq-title">
-                    <a href="movie-details.html">{{mod.title}}</a>
+                    <a href="{% url 'mods:category' featured.id %}">{{mod.title}}</a>
                   </h6>
                   <div class="movie-time d-flex align-items-center my-2">
                     <div class="badge badge-secondary p-1 mr-2">
                       {{mod.downloads.count}} Downloads
                     </div>
                   </div>
-                    <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
+                  <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
+                  <br>
+                <div class="text-primary title genres">
+                  File Size: <span class="text-body">{{mod.mod_file.size | filesizeformat}}</span>
+                </div>
                   <div class="hover-buttons">
                     <span class="btn btn-hover iq-button"
                       ><i class="fa fa-play mr-1" aria-hidden="true"></i>
@@ -77,10 +81,11 @@
                   </ul>
                 </div>
               </div>
-            </div>
-            {%endfor%}
-          </div>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
-</div>
+      </div>
+    </div>
+  </div>
 </section>
-{% endblock %}

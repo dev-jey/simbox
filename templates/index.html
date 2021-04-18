@@ -1,17 +1,25 @@
 {% extends 'base.html' %} 
 {% block maincontent %} 
-{% load static %}
-{% include 'components/mods/slider.html'%} 
+{% load static %} 
 
-<!-- MainContent -->
-<div class="main-content">
-  <br><br><br>
-  {%include 'components/mods/most_downloaded.html'%} 
-  {%include 'components/mods/latest_mods.html'%} 
-  {% comment %} {%include 'components/mods/suggested.html'%} {% endcomment %}
-  {%include 'components/mods/featured.html'%}
+
+{% if error %}
+<br><br><br><br><br><br>
+<section id="home" class="iq-main-slider p-0">
+  <div id="home-slider" class="slider m-0 p-0">
+{{error}}
 </div>
+</section>
+{%else%}
+{% include 'components/mods/slider.html'%}
+<br><br><br><br><br><br>
+{% include 'components/mods/snippets/msfs.html' %}<br>
+{% include 'components/mods/snippets/p3d.html' %}<br>
+{% include 'components/mods/snippets/x-plane.html' %}<br>
 
+  {%include 'components/mods/featured.html'%}
+
+{% endif %}
  {%include 'components/layout/footer.html'%} 
 
 {%endblock%}

@@ -1,19 +1,13 @@
 import os
 from project_box.apps.mods.resize_mixin import ResizeImageMixin
-from django.http.response import Http404, HttpResponseRedirect
-from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.http import JsonResponse
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http.response import HttpResponseRedirect
+from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from project_box.apps.mods.forms import ModCreateForm
 from django.views.generic.base import TemplateView
 from project_box.apps.mods.models import Mod, Type
-from django.contrib import messages
-from io import BytesIO
 import uuid
-
-from django.http import JsonResponse
-
 from project_box.storage_backends import MediaStorage
 
 
@@ -51,9 +45,9 @@ class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
         self.image = self.request.FILES['image']
         self.cover_image = self.request.FILES['cover_image']
         # Upload items to aws, store in well organized folders
-        self.compressed_image = self.resize(self.image, (400, 400))
+        self.compressed_image = self.resize(self.image, (550, 400))
         image_url = self.validate_and_upload_files(self.compressed_image, self.request.user, 'image')
-        self.compressed_cover_image = self.resize(self.cover_image, (400, 400))
+        self.compressed_cover_image = self.resize(self.cover_image, (1000, 1000))
         cover_image_url = self.validate_and_upload_files(self.compressed_cover_image, self.request.user, 'image')
         mod_file_url = self.validate_and_upload_files(self.mod_file, self.request.user)
         self.object = form.save(commit=False)
@@ -110,18 +104,8 @@ class ModsListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         mods = Mod.objects.all().order_by('-title')
-        types = Type.objects.all()
-        msfs = types.filter(name='MSFS').first()
-        p3d = types.filter(name='P3D').first()
-        x_plane = types.filter(name='X-PLANE').first()
         context['user'] = self.request.user
         context['mods'] = mods[:10]
-        context['msfs_mods'] = msfs.mods.all()[:10]
-        context['p3d_mods'] = p3d.mods.all()[:10]
-        context['msfs'] = msfs
-        context['x_plane'] = x_plane
-        context['p3d'] = p3d
-        context['x_plane_mods'] = x_plane.mods.all()[:10]
         return context
 
 

@@ -7,66 +7,44 @@
     >
       <div class="col-lg-4 r-mb-23">
         <div class="text-left">
-          <a href="javascript:void(0);">
+<br>
+          <a href="{% url 'mods:category' featured.id %}">
             <img
-              src="{% static 'images/parallax/parallax-logo.png' %}"
+              src="{{featured.image.url}}"
               class="img-fluid"
-              alt="bailey"
+              alt="{{featured.title}}"
             />
           </a>
-          <div class="parallax-ratting d-flex align-items-center mt-3 mb-3">
-            <ul
-              class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left"
-            >
-              <li>
-                <a href="javascript:void(0);" class="text-primary"
-                  ><i class="fa fa-star" aria-hidden="true"></i
-                ></a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="pl-2 text-primary"
-                  ><i class="fa fa-star" aria-hidden="true"></i
-                ></a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="pl-2 text-primary"
-                  ><i class="fa fa-star" aria-hidden="true"></i
-                ></a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="pl-2 text-primary"
-                  ><i class="fa fa-star" aria-hidden="true"></i
-                ></a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="pl-2 text-primary"
-                  ><i class="fa fa-star-half-o" aria-hidden="true"></i
-                ></a>
-              </li>
-            </ul>
-            <span class="text-white ml-3">9.2</span>
-          </div>
+          <br><br>
+
+                  <h3 class="iq-title">
+                    <a href="{% url 'mods:category' featured.id %}">{{featured.title}}</a>
+                  </h3>
+                  <br><br>
           <div class="movie-time d-flex align-items-center mb-3">
-            <div class="badge badge-secondary mr-3">23 Downloads</div>
-            <h6 class="text-white">Flight Sim</h6>
+            <div class="badge badge-secondary mr-3">{{featured.downloads.count}} Downloads</div>
+            <h6 class="text-white">{% for typ in featured.type_mods.all %} | {{typ.name}}{% endfor %}</h6>
           </div>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry...
+
+                <div class="text-primary title genres">
+                  File Size: <span class="text-body">{{featured.mod_file.size | filesizeformat}}</span>
+                </div>
+          <p class="text-sm-left">
+            {{featured.description}}
           </p>
           <div class="parallax-buttons">
-            <a href="movie-details.html" class="btn btn-hover">Download</a>
-            <a href="movie-details.html" class="btn btn-link">More details</a>
+            <a href="{% url 'mods:category' featured.id %}" class="btn btn-hover">Download</a>
+            <a href="{% url 'mods:category' featured.id %}" class="btn btn-link">More details</a>
           </div>
         </div>
       </div>
       <div class="col-lg-8">
         <div class="parallax-img">
-          <a href="movie-details.html">
+          <a href="{% url 'mods:category' featured.id %}">
             <img
-              src="{% static 'images/parallax/p1.jpg' %}"
+              src="{{featured.cover_image.url}}"
               class="img-fluid w-100"
-              alt="bailey"
+              alt="{{featured.title}}"
             />
           </a>
         </div>

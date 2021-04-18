@@ -62,7 +62,9 @@ class HomeAPIView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # categories = Type.objects.all()
+        top_mods = Mod.objects.all()[:3]
         context['user'] = self.request.user
+        context['top_mods'] = top_mods
         # context['categories'] = categories
         return context
 
