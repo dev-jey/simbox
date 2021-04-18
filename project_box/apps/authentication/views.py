@@ -18,7 +18,7 @@ from django.urls.base import reverse
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from .forms import UserRegisterForm, UserUpdateForm
-from project_box.apps.mods.models import Mod
+from project_box.apps.mods.models import Mod, Type
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 
@@ -61,8 +61,9 @@ class HomeAPIView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        # categories = Type.objects.all()
         context['user'] = self.request.user
+        # context['categories'] = categories
         return context
 
 

@@ -110,14 +110,18 @@ class ModsListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         mods = Mod.objects.all().order_by('-title')
-        msfs_mods = Type.objects.filter(name='MSFS').first().mods.all()
-        p3d_mods = Type.objects.filter(name='P3D').first().mods.all()
-        x_plane_mods = Type.objects.filter(name='X-PLANE').first().mods.all()
+        types = Type.objects.all()
+        msfs = types.filter(name='MSFS').first()
+        p3d = types.filter(name='P3D').first()
+        x_plane = types.filter(name='X-PLANE').first()
         context['user'] = self.request.user
         context['mods'] = mods[:10]
-        context['msfs_mods'] = msfs_mods[:10]
-        context['p3d_mods'] = p3d_mods[:10]
-        context['x_plane_mods'] = x_plane_mods[:10]
+        context['msfs_mods'] = msfs.mods.all()[:10]
+        context['p3d_mods'] = p3d.mods.all()[:10]
+        context['msfs'] = msfs
+        context['x_plane'] = x_plane
+        context['p3d'] = p3d
+        context['x_plane_mods'] = x_plane.mods.all()[:10]
         return context
 
 
@@ -126,5 +130,12 @@ class CategoryView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        category = Type.objects.filter(id=self.kwargs['pk']).first()
+        category_mods = category.mods.all()
+        top_category_mods = category_mods[:10]
         context['user'] = self.request.user
+        context['category'] = category
+        context['category_mods'] = category_mods
+        context['top_category_mods'] = top_category_mods
+
         return context

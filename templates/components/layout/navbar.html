@@ -43,15 +43,11 @@
                   <li class="menu-item">
                     <a href="#">Categories</a>
                     <ul class="sub-menu">
+                    {% for category in categories %}
                       <li class="menu-item">
-                        <a href="{% url 'mods:category' 1 %}">P3D</a>
+                        <a href="{% url 'mods:category' category.id %}">{{category.name}}</a>
                       </li>
-                      <li class="menu-item">
-                        <a href="{% url 'mods:category' 1 %}">MSFS</a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="{% url 'mods:category' 1 %}">X-Plane</a>
-                      </li>
+                      {% endfor %}
                     </ul>
                   </li>
 
