@@ -1,11 +1,13 @@
 from django import forms
-from .models import Mod
+from .models import Mod, Type
 
 
 class ModCreateForm(forms.ModelForm):
+    type_ = forms.ModelChoiceField(queryset=Type.objects.all().distinct())
+
     class Meta:
         model = Mod
-        fields = ['title', 'description', 'image', 'cover_image', 'mod_file']
+        fields = ['title', 'type_', 'description', 'image', 'cover_image', 'mod_file']
         exclude = ('user',)
 
     def __init__(self, *args, **kwargs):

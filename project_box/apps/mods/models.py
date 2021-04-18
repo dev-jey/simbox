@@ -6,7 +6,7 @@ from .validators import validate_file_size_10mb, validate_file_size_4mb
 
 
 class Download(models.Model):
-    ip_address = models.GenericIPAddressField(blank=False)
+    ip_address = models.GenericIPAddressField(protocol='IPv4', default='', unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -16,6 +16,6 @@ def validate_file_size_4mb(value):
 
     # 10Mb limit
     if filesize > 4194304:
-        raise ValidationError("The maximum file size that can be uploaded is 10MB")
+        raise ValidationError("The maximum file size that can be uploaded is 4MB")
     else:
         return value

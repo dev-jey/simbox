@@ -1,4 +1,5 @@
 import os
+from project_box.apps.mods.resize_mixin import ResizeImageMixin
 from django.http.response import Http404, HttpResponseRedirect
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.http import JsonResponse
@@ -6,9 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from project_box.apps.mods.forms import ModCreateForm
 from django.views.generic.base import TemplateView
-from project_box.apps.mods.models import Mod
+from project_box.apps.mods.models import Mod, Type
 from django.contrib import messages
 from io import BytesIO
+import uuid
 
 from django.http import JsonResponse
 
@@ -33,7 +35,7 @@ class ModDetailView(TemplateView):
         return ip
 
 
-class AddModView(LoginRequiredMixin, CreateView):
+class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
     template_name = 'components/mods/newmod.html'
     success_url = reverse_lazy('mods:mods-list')
     form_class = ModCreateForm
@@ -44,54 +46,39 @@ class AddModView(LoginRequiredMixin, CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
-    # def form_valid(self, form):
-    #     title = form.cleaned_data.get('title')
-    #     description = form.cleaned_data.get('description')
-    #     mod_file = self.request.FILES['mod_file']
-    #     image = self.request.FILES['image']
-    #     cover_image = self.request.FILES['cover_image']
-    #     # Upload items to aws, store in well organized folders
-    #     self.validate_and_upload_files(image, self.request.user, 'image')
-    #     self.validate_and_upload_files(cover_image, self.request.user, 'image')
-    #     self.validate_and_upload_files(mod_file, self.request.user)
-    #     # Mod.objects.create(
-    #     #     title=title,
-    #     #     description=description
-    #     # )
-    #     return super(AddModView, self).form_valid(form)
+    def form_valid(self, form):
+        self.mod_file = self.request.FILES['mod_file']
+        self.image = self.request.FILES['image']
+        self.cover_image = self.request.FILES['cover_image']
+        # Upload items to aws, store in well organized folders
+        self.compressed_image = self.resize(self.image, (400, 400))
+        image_url = self.validate_and_upload_files(self.compressed_image, self.request.user, 'image')
+        self.compressed_cover_image = self.resize(self.cover_image, (400, 400))
+        cover_image_url = self.validate_and_upload_files(self.compressed_cover_image, self.request.user, 'image')
+        mod_file_url = self.validate_and_upload_files(self.mod_file, self.request.user)
+        self.object = form.save(commit=False)
+        self.object.image = image_url
+        self.object.cover_image = cover_image_url
+        self.object.mod_file = mod_file_url
+        self.object.save()
+        form.cleaned_data['type_'].mods.add(self.object)
+        self.request.user.mods.add(self.object)
+        return HttpResponseRedirect(self.get_success_url())
 
     def validate_and_upload_files(self, file_obj, user, image=None):
-
         # organize a path for the file in bucket
         if image:
             file_directory_within_bucket = 'user_mod_image_files/{username}'.format(username=user)
         else:
             file_directory_within_bucket = 'user_mod_files/{username}'.format(username=user)
-
         # synthesize a full file path; note that we included the filename
         file_path_within_bucket = os.path.join(
             file_directory_within_bucket,
-            file_obj.name
+            f'{uuid.uuid4()}.jpg'
         )
         media_storage = MediaStorage()
-        media_storage.save(file_path_within_bucket, file_obj)
         # file_url = media_storage.url(file_path_within_bucket)
-
-        # if not media_storage.exists(file_path_within_bucket):  # avoid overwriting existing file
-        #     media_storage.save(file_path_within_bucket, file_obj)
-
-        #     return JsonResponse({
-        #         'message': 'OK',
-        #         'fileUrl': file_url,
-        #     })
-        # else:
-        #     return JsonResponse({
-        #         'message': 'Error: file {filename} already exists at {file_directory} in bucket {bucket_name}'.format(
-        #             filename=file_obj.name,
-        #             file_directory=file_directory_within_bucket,
-        #             bucket_name=media_storage.bucket_name
-        #         ),
-        #     }, status=400)
+        return media_storage.save(file_path_within_bucket, file_obj)
 
 
 class EditModView(LoginRequiredMixin, CreateView):
@@ -122,7 +109,15 @@ class ModsListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        mods = Mod.objects.all().order_by('-title')
+        msfs_mods = Type.objects.filter(name='MSFS').first().mods.all()
+        p3d_mods = Type.objects.filter(name='P3D').first().mods.all()
+        x_plane_mods = Type.objects.filter(name='X-PLANE').first().mods.all()
         context['user'] = self.request.user
+        context['mods'] = mods[:10]
+        context['msfs_mods'] = msfs_mods[:10]
+        context['p3d_mods'] = p3d_mods[:10]
+        context['x_plane_mods'] = x_plane_mods[:10]
         return context
 
 
