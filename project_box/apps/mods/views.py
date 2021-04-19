@@ -50,7 +50,7 @@ class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
         # Upload items to aws, store in well organized folders
         self.compressed_image = self.resize(self.image, (550, 400))
         image_url = self.validate_and_upload_files(self.compressed_image, self.request.user, 'image')
-        self.compressed_cover_image = self.resize(self.cover_image, (1000, 1000))
+        self.compressed_cover_image = self.resize(self.cover_image, (800, 600))
         cover_image_url = self.validate_and_upload_files(self.compressed_cover_image, self.request.user, 'image')
         mod_file_url = self.validate_and_upload_files(self.mod_file, self.request.user)
         self.object = form.save(commit=False)
