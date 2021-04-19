@@ -1,6 +1,6 @@
 from django import forms
 from .models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class UserRegisterForm(UserCreationForm):
@@ -12,6 +12,18 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
         help_texts = {k: "" for k in fields}
+
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.EmailField(required=True)
+    def __init__(self, *args, **kwargs):
+        self.error_messages['invalid_login'] = 'Login failed. Username and password do not match.'
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
 
 
 class UserUpdateForm(forms.ModelForm):

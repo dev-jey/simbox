@@ -5,22 +5,60 @@ import jwt
 from .models import User
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import User
 from django.contrib.auth.mixins import LoginRequiredMixin  # UserPassesTestMixin
 
+from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth import login as auth_login
 from datetime import datetime, timedelta
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.urls.base import reverse
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
-from .forms import UserRegisterForm, UserUpdateForm
+from .forms import LoginForm, UserRegisterForm, UserUpdateForm
 from project_box.apps.mods.models import Mod, Type
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
+from django.contrib import messages
+
+
+class CustomLoginView(LoginView):
+    """
+    Custom login view.
+    """
+    template_name = 'components/user/login.html'
+    success_url = reverse_lazy('authentication:home')
+    form_class = LoginForm
+    success_message = "Login Successful"
+
+    def get_initial(self):
+        if self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('{}'.format(self.request.GET.get('next', 'authentication:home'))))
+        else:
+            return self.initial.copy()
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        form = self.get_form()
+        messages.error(self.request, '')
+        if form.is_valid():
+            user = form.get_user()
+            if user.is_verified:
+                auth_login(self.request, user)
+                return self.form_valid(form)
+            else:
+                messages.error(
+                    self.request, 'Kindly verify your account to login. Check your email for a verification link.')
+                return self.form_invalid(form)
+        else:
+            return self.form_invalid(form)
 
 
 class SignUpView(CreateView):
@@ -33,7 +71,7 @@ class SignUpView(CreateView):
         payload = {
             'email': email,
             'username': username,
-            'exp': datetime.utcnow() + timedelta(minutes=60)
+            'exp': datetime.utcnow() + timedelta(minutes=600000)
         }
         token = jwt.encode(payload, settings.SECRET_KEY,
                            algorithm='HS256')
@@ -109,5 +147,5 @@ class ProfileModsAPIView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['user'] = self.request.user
+        context['user'] = User.objects.filter(username=kwargs['username']).first()
         return context
