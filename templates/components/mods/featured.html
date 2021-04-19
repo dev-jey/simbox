@@ -8,7 +8,7 @@
       <div class="col-lg-4 r-mb-23">
         <div class="text-left">
 <br>
-          <a href="{% url 'mods:category' featured.id %}">
+          <a href="{% url 'mods:mod-detail' featured.id %}">
             <img
               src="{{featured.image.url}}"
               class="img-fluid"
@@ -18,7 +18,7 @@
           <br><br>
 
                   <h3 class="iq-title">
-                    <a href="{% url 'mods:category' featured.id %}">{{featured.title}}</a>
+                    <a href="{% url 'mods:mod-detail' featured.id %}">{{featured.title}}</a>
                   </h3>
                   <br><br>
           <div class="movie-time d-flex align-items-center mb-3">
@@ -33,14 +33,14 @@
             {{featured.description}}
           </p>
           <div class="parallax-buttons">
-            <a href="{% url 'mods:category' featured.id %}" class="btn btn-hover">Download</a>
-            <a href="{% url 'mods:category' featured.id %}" class="btn btn-link">More details</a>
+            <a href="{% url 'mods:mod-detail' featured.id %}" class="btn btn-hover">Download</a>
+            <a href="{% url 'mods:mod-detail' featured.id %}" class="btn btn-link">More details</a>
           </div>
         </div>
       </div>
       <div class="col-lg-8">
         <div class="parallax-img">
-          <a href="{% url 'mods:category' featured.id %}">
+          <a href="{% url 'mods:mod-detail' featured.id %}">
             <img
               src="{{featured.cover_image.url}}"
               class="img-fluid w-100"

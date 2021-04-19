@@ -32,13 +32,13 @@
                   </div>
                     <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
                   <div class="hover-buttons">
-                    <span class="btn btn-hover iq-button"
+                    <a class="btn btn-hover iq-button"  href="{% url 'mods:mod-detail' mod.id %}"
                       ><i class="fa fa-play mr-1" aria-hidden="true"></i>
                       Download
-                    </span>
+                    </a>
                   </div>
                 </div>
-                <div class="block-social-info">
+                {% comment %} <div class="block-social-info">
                   <ul class="list-inline p-0 m-0 music-play-lists">
                     <li class="share">
                       <span><i class="ri-share-fill"></i></span>
@@ -75,7 +75,7 @@
                       <span class="count-box">19+</span>
                     </li>
                   </ul>
-                </div>
+                </div> {% endcomment %}
               </div>
             </div>
             {%endfor%}
