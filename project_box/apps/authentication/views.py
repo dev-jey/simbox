@@ -52,6 +52,8 @@ class CustomLoginView(LoginView):
             user = form.get_user()
             if user.is_verified:
                 auth_login(self.request, user)
+                if not form.cleaned_data['remember_me']:
+                    self.request.session.set_expiry(0)
                 return self.form_valid(form)
             else:
                 messages.error(
@@ -65,7 +67,7 @@ class SignUpView(CreateView):
     template_name = 'components/user/register.html'
     success_url = reverse_lazy('authentication:login')
     form_class = UserRegisterForm
-    success_message = "Your profile was created successfully"
+    success_message = "Your account was created successfully"
 
     def send_email_activation_link(self, username, email, url):
         payload = {
@@ -91,6 +93,8 @@ class SignUpView(CreateView):
         email = form.cleaned_data.get('email')
         url = Site.objects.get_current().domain
         self.send_email_activation_link(username, email, url)
+        messages.success(
+            self.request, 'Your account has been created successfuly. We have sent an email verification link to your email. Kindly verify your email to login.')
         return super(SignUpView, self).form_valid(form)
 
 

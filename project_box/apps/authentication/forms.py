@@ -17,7 +17,8 @@ class UserRegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
 
-    username = forms.EmailField(required=True)
+    username = forms.EmailField(required=True) 
+    remember_me = forms.BooleanField(required = False)
     def __init__(self, *args, **kwargs):
         self.error_messages['invalid_login'] = 'Login failed. Username and password do not match.'
         super().__init__(*args, **kwargs)

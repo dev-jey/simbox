@@ -17,25 +17,23 @@
             <div class="sign-in-from w-100 m-auto">
               <h3 class="mb-3 text-center">Sign in</h3>
               {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == "success" %}
+              <p class="successField">
+              {{message}}
+              </p>
+              {%else%}
               <p class="errorField">
-              {% for message in messages %}{{message}}{% endfor %}
+              {{message}}
               </p>
               {% endif %}
+              {% endfor %}
+              {%endif%}
               <form class="mt-4" method="post">
                 {% csrf_token %} {{ form|crispy }}
 
                 <div class="sign-info">
                 <br>
-                  <div class="custom-control custom-checkbox d-inline-block">
-                    <label class="custom-control-label" for="customCheck"
-                      >Remember Me</label
-                    >
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="customCheck"
-                    />
-                  </div><br><br>
                   <button type="submit" class="btn btn-hover">Sign in</button><br>
                 </div>
               </form>
