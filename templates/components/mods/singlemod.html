@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block maincontent %} {% load static %}
-
+{% if mod %}
 <section class="banner-wrapper overlay-wrapper iq-main-slider" style="background-image: url({{mod.cover_image.url}});">
   <div class="banner-caption">
     <div class="position-relative mb-4">
@@ -104,5 +104,15 @@
     </div>
   </section>
 </div>
-
+{% else %}
+<div class="main-content container-fluid"  style="padding-top:250px">
+  <h3>Add-on not found!</h3>
+  <br><br>
+  <p>The mod you tried viewing does not exist in our system. 
+  </p><br>
+  <div class="sign-info">
+    <a href="{% url 'authentication:index' %}" class="btn btn-hover">Take me back home</a>
+  </div>
+</div>
+{% endif %}
 {%endblock%}

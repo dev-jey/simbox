@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block maincontent %} {% load static %}
 
+{% if user %}
 <section class="banner-wrapper overlay-wrapper iq-main-slider" style="background-image: url('../../static/images/favorite/02.jpg');">
   <div class="banner-caption">
     <div class="position-relative mb-4">
@@ -50,13 +51,13 @@
             <span class="text-gold ml-3">#2 in Series Today</span>
           </div>
           {% endcomment %}
-          <p class="trending-dec w-100 mb-0">
+          {% comment %} <p class="trending-dec w-100 mb-0">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries.
-          </p>
+          </p> {% endcomment %}
         </div>
       </div>
     </div>
@@ -80,7 +81,7 @@
           href="#episodes"
           role="tab"
           aria-selected="true"
-          >My Mods</a
+          >{{user.username | capfirst}} Mods</a
         >
       </li>
       {% comment %} <li class="nav-item">
@@ -98,6 +99,7 @@
       <div id="episodes" class="tab-pane fade active show" role="tabpanel">
         <div class="block-space">
           <div class="row">
+          {% if user.mods.count %}
           {% for mod in user.mods.all %}
           <div class="col-1-5 col-md-6 iq-mb-30">
               <div class="block-images position-relative">
@@ -132,6 +134,11 @@
               </div>
             </div>
           {% endfor %}
+          {% else %}
+          <div class="col-1-5 col-md-6 iq-mb-30">
+          No Uploaded Mods!
+          </div>
+          {% endif %}
           </div>
         </div>
       </div>
@@ -469,5 +476,17 @@
     </div>
   </section>
 </div>
+{% else %}
+<div class="main-content container-fluid"  style="padding-top:250px">
+  <h3>User not found!</h3>
+  <br><br>
+  <p>The user you tried viewing their profile does not exist in our system. 
+  </p><br>
+  <div class="sign-info">
+    <a href="{% url 'authentication:index' %}" class="btn btn-hover">Take me back home</a>
+  </div>
+</div>
+{% endif %}
+
 
 {%endblock%}

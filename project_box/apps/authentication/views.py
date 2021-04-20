@@ -6,7 +6,6 @@ from .models import User
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.contrib.auth.forms import PasswordChangeForm
 from .models import User
 from django.contrib.auth.mixins import LoginRequiredMixin  # UserPassesTestMixin
 
@@ -17,7 +16,6 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.urls.base import reverse
-from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from .forms import LoginForm, UserRegisterForm, UserUpdateForm
 from project_box.apps.mods.models import Mod, Type
@@ -25,6 +23,15 @@ from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib import messages
 
+
+class UserUpdateView(PasswordChangeView):
+    """
+    Custom user update view.
+    """
+    template_name = 'profile.html'
+    success_url = reverse_lazy('authentication:profile')
+    form_class = UserUpdateForm
+    success_message = "Profile Updated Successfully Successful"
 
 class CustomLoginView(LoginView):
     """
@@ -132,16 +139,6 @@ class VerifyAPIView(TemplateView):
             message = 'Verification token is not valid. Try again'
         context['user'] = self.request.user
         context['message'] = message
-        return context
-
-
-class ProfileAPIView(LoginRequiredMixin, TemplateView):
-    template_name = 'profile.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['user'] = self.request.user
         return context
 
 

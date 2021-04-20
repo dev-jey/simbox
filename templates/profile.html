@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
  {% block maincontent %} 
+{% load crispy_forms_tags %} 
  {% load static %}
 <!-- MainContent -->
 <section class="m-profile manage-p">
@@ -24,58 +25,14 @@
             <div class="col-lg-10 device-margin">
               <div class="profile-from">
                 <h4 class="mb-3">Update Profile</h4>
-                <form
-                  class="mt-4"
-                  action=""
-                >
-                  <div class="form-group">
-                    <label>Username</label>
-                    <input
-                      type="text"
-                      disabled
-                      class="form-control mb-0 text-black"
-                      id="exampleInputl2"
-                      placeholder="Enter Your Name"
-                      value="{{user.username| capfirst}}"
-                      autocomplete="off"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>Current Password</label>
-                    <input
-                      type="text"
-                      class="form-control date-input basicFlatpickr mb-0"
-                      placeholder="Current Password"
-                      id="exampleInputPassword2"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>New Password</label>
-                    <input
-                      type="text"
-                      class="form-control date-input basicFlatpickr mb-0"
-                      placeholder="New Password"
-                      id="exampleInputPassword2"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>Confirm New Password</label>
-                    <input
-                      type="text"
-                      class="form-control date-input basicFlatpickr mb-0"
-                      placeholder="Confirm New Password"
-                      id="exampleInputPassword2"
-                      required
-                    />
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="btn btn-hover">Save</a>
-                    <a href="#" class="btn btn-link">Cancel</a>
-                  </div>
-                </form>
+                <form class="mt-12" method="post">
+                <br />
+                {% csrf_token %} {{ form|crispy }}
+                <br>
+                <button type="submit" class="btn btn-hover my-2">
+                  Update Password
+                </button>
+              </form>
               </div>
             </div>
           </div>

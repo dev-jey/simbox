@@ -10,7 +10,7 @@ from .views import (
     HomeAPIView,
     VerifyAPIView,
     SignUpView,
-    ProfileAPIView,
+    UserUpdateView,
     ProfileModsAPIView,
     CustomLoginView
 )
@@ -36,7 +36,7 @@ urlpatterns = [
          VerifyAPIView.as_view(),
          name='verify_email'),
     path('profile/',
-         ProfileAPIView.as_view(),
+         UserUpdateView.as_view(),
          name='profile'),
     path('profile/<username>/',
          ProfileModsAPIView.as_view(),
