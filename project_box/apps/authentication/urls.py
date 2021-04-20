@@ -5,6 +5,7 @@ URL configurations for the terms application.
 """
 from django.urls import path
 from django.contrib.auth.views import LogoutView
+from django.views.generic.base import TemplateView
 from .views import (
     HomeAPIView,
     VerifyAPIView,
@@ -43,4 +44,10 @@ urlpatterns = [
     path('logout/',
          LogoutView.as_view(),
          name='logout'),
+    path('guide/',
+         TemplateView.as_view(template_name="components/extras/guide.html"),
+         name='guide'),
+    path('terms/',
+         TemplateView.as_view(template_name="components/extras/terms.html"),
+         name='terms'),
 ]

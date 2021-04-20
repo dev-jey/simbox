@@ -37,7 +37,7 @@ class CustomLoginView(LoginView):
 
     def get_initial(self):
         if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('{}'.format(self.request.GET.get('next', 'authentication:home'))))
+            return HttpResponseRedirect(reverse('{}'.format(self.request.GET.get('next', 'authentication:index'))))
         else:
             return self.initial.copy()
 

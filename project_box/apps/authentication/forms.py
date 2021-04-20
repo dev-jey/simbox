@@ -7,10 +7,11 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, help_text='Minimum 8 characters.')
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput, help_text='')
+    agree_to_terms_and_conditions = forms.BooleanField(required = True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2','agree_to_terms_and_conditions']
         help_texts = {k: "" for k in fields}
 
 

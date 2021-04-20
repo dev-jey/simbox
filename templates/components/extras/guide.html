@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block maincontent %} {% load static %}
+<div
+  class="iq-breadcrumb-one iq-bg-over iq-over-dark-50"
+  style="background-image: url(images/about-us/01.jpg)"
+>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-sm-12">
+        <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+          <h2 class="title">Community Guidelines</h2>
+          <ol class="breadcrumb main-bg">
+            <li class="breadcrumb-item"><a href="{% url 'authentication:index' %}">Home</a></li>
+            <li class="breadcrumb-item active">Community Guidelines</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main container -->
+<main id="main" class="site-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-sm-12">
+        <div class="iq-privacy-policy">
+          <div class="mb-3">
+            <h4 class="mb-3">
+              1. Respect everyone.
+            </h4>
+            <p class="my-3">No matter their race, ethnicity, national origin, sex, gender, religious affiliation, or disabilities.
+            </p>
+            <br />
+          </div>
+          <div class="mb-3">
+            <h4 class="mb-3">2. Swearing & Explicit language is prohibited. </h4>
+            <p class="mb-2"> Using this language in SimBox.org is not welcomed no matter how it is shaped or formed.
+            </p>
+            <br />
+          </div>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              3. Any NSFW content or comments.
+            </h4>
+            <p class="">Posting any NSFW content or comments or anything related to it in SimBox.org is prohibited.
+            </p>
+            <br />
+          </div>
+          <div class="mb-3">
+            <h4 class="mb-3">4. Harassment Bullying or Hate Speech.</h4>
+            <p class="">We do not welcome any harassment against SimBox’s Staff or users.
+            </p>
+            <br />
+          </div>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-3">
+              Defame, libel, ridicule, mock, stalk, threaten, harass, intimidate or Abuse anyone of SimBox’s users.
+            </p>
+          </div><br>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-0">
+              Engage in conduct that is fraudulent, illegal or otherwise harmful to SimBox or its users.
+            </p>
+          </div><br>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-0">
+              Attempt to obtain passwords or other private information from other members.
+            </p>
+          </div><br>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-0">
+              Improperly use support channels or complaint buttons to make false reports to us.
+            </p>
+          </div><br>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-0">
+              Upload or transmit (or attempt to upload or transmit) files that contain viruses, Trojan horses, worms, time bombs, cancelbots, corrupted files or data, or any other similar software or programs or engage in any other activity that may damage the operation of the Service or other users' computers.
+            </p>
+          </div><br>
+          <div class="mb-3">
+            <h4 class="mb-3">
+              5. Do Not
+            </h4>
+            <p class="mb-0">
+              Violate the contractual, personal, intellectual property or other rights of any party including using, uploading, transmitting, distributing, or otherwise making available any information made available through the Service in any manner that infringes any copyright, trademark, patent, trade secret, or other right of any party.            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Main container end -->
+
+{%include 'components/layout/footer.html'%} {%endblock%}
