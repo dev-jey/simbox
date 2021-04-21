@@ -1,166 +1,181 @@
-{% extends 'base.html' %} {% block maincontent %} {% load static %}
-<div class="top-split"  style="padding:150px 0">
-
-<section id="iq-upcoming-movie mt-8">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 overflow-hidden">
-        <div
-          class="iq-main-header d-flex align-items-center justify-content-between"
-        >
-          <h4 class="main-title">Top {{category.name}} Mods</h4>
-        </div>
-        <div class="upcoming-contens">
-          <ul class="favorites-slider list-inline row p-0 mb-0">
-            {% for mod in top_category_mods %}
-            <li class="slide-item">
-              <div class="block-images position-relative">
-                <div class="img-box">
-                  <img
-                    src="{{ mod.image.url }}"
-                    class="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div class="block-description">
-                  <h6 class="iq-title">
-                    <a href="movie-details.html">{{mod.title}}</a>
-                  </h6>
-                  <div class="movie-time d-flex align-items-center my-2">
-                    <div class="badge badge-secondary p-1 mr-2">
-                      {{mod.downloads.count}} Downloads
+{% extends 'base.html' %} {% block maincontent %} {% load static %} 
+{% if category %}
+<div class="top-split" style="padding: 150px 0">
+  <section id="iq-upcoming-movie mt-8">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 overflow-hidden">
+          <div
+            class="iq-main-header d-flex align-items-center justify-content-between"
+          >
+            <h4 class="main-title">Top {{category.name}} Mods</h4>
+          </div>
+          <div class="upcoming-contens">
+            <ul class="favorites-slider list-inline row p-0 mb-0">
+              {% for mod in top_category_mods %}
+              <li class="slide-item">
+                <div class="block-images position-relative">
+                  <div class="img-box">
+                    <img src="{{ mod.image.url }}" class="img-fluid" alt="" />
+                  </div>
+                  <div class="block-description">
+                    <h6 class="iq-title">
+                      <a href="movie-details.html">{{mod.title}}</a>
+                    </h6>
+                    <div class="movie-time d-flex align-items-center my-2">
+                      <div class="badge badge-secondary p-1 mr-2">
+                        {{mod.downloads.count}} Downloads
+                      </div>
+                    </div>
+                    <span class="text-white"
+                      >{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span
+                    >
+                    <div class="hover-buttons">
+                      <a
+                        class="btn btn-hover iq-button"
+                        href="{% url 'mods:mod-detail' mod.id %}"
+                        ><i class="fa fa-play mr-1" aria-hidden="true"></i>
+                        Download
+                      </a>
                     </div>
                   </div>
-                    <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
-                  <div class="hover-buttons">
-                    <a class="btn btn-hover iq-button" href="{% url 'mods:mod-detail' mod.id %}"
-                      ><i class="fa fa-play mr-1" aria-hidden="true"></i>
-                      Download
-                    </a>
-                  </div>
-                </div>
-                {% comment %} <div class="block-social-info">
-                  <ul class="list-inline p-0 m-0 music-play-lists">
-                    <li class="share">
-                      <span><i class="ri-share-fill"></i></span>
-                      <div class="share-box">
-                        <div class="d-flex align-items-center">
-                          <a
-                            href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-facebook-fill"></i
-                          ></a>
-                          <a
-                            href="https://twitter.com/intent/tweet?text=Currentlyreading"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-twitter-fill"></i
-                          ></a>
-                          <a
-                            href="#"
-                            data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            class="share-ico iq-copy-link"
-                            tabindex="0"
-                            ><i class="ri-links-fill"></i
-                          ></a>
+                  {% comment %}
+                  <div class="block-social-info">
+                    <ul class="list-inline p-0 m-0 music-play-lists">
+                      <li class="share">
+                        <span><i class="ri-share-fill"></i></span>
+                        <div class="share-box">
+                          <div class="d-flex align-items-center">
+                            <a
+                              href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="share-ico"
+                              tabindex="0"
+                              ><i class="ri-facebook-fill"></i
+                            ></a>
+                            <a
+                              href="https://twitter.com/intent/tweet?text=Currentlyreading"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="share-ico"
+                              tabindex="0"
+                              ><i class="ri-twitter-fill"></i
+                            ></a>
+                            <a
+                              href="#"
+                              data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
+                              class="share-ico iq-copy-link"
+                              tabindex="0"
+                              ><i class="ri-links-fill"></i
+                            ></a>
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                    <li>
-                      <span><i class="ri-heart-fill"></i></span>
-                      <span class="count-box">19+</span>
-                    </li>
-                  </ul>
-                </div> {% endcomment %}
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
+                      </li>
+                      <li>
+                        <span><i class="ri-heart-fill"></i></span>
+                        <span class="count-box">19+</span>
+                      </li>
+                    </ul>
+                  </div>
+                  {% endcomment %}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<section class="main-content container-fluid">
-          <h4 class="main-title">All {{category.name}} Mods</h4>
-  <div class="block-space">
-          <div class="row">
-          {%for mod in category_mods%}
-            <div class="col-md-3 col-sm-12 iq-mb-30">
-              <div class="block-images position-relative">
-                <div class="img-box">
-                  <img
-                    src="{{mod.image.url}}"
-                    class="img-fluid"
-                    alt=""
-                  />
+  </section>
+  <section class="main-content container-fluid">
+    <h4 class="main-title">All {{category.name}} Mods</h4>
+    <div class="block-space">
+      <div class="row">
+        {%for mod in category_mods%}
+        <div class="col-md-3 col-sm-12 iq-mb-30">
+          <div class="block-images position-relative">
+            <div class="img-box">
+              <img src="{{mod.image.url}}" class="img-fluid" alt="" />
+            </div>
+
+            <div class="block-description">
+              <h6 class="iq-title">
+                <a href="{% url 'mods:mod-detail' mod.id %}">{{mod.title}}</a>
+              </h6>
+              <div class="movie-time d-flex align-items-center my-2">
+                <div class="badge badge-secondary p-1 mr-2">
+                  {{mod.downloads.count}} Downloads
                 </div>
-                
-                <div class="block-description">
-                  <h6 class="iq-title">
-                    <a href="{% url 'mods:mod-detail' mod.id %}">{{mod.title}}</a>
-                  </h6>
-                  <div class="movie-time d-flex align-items-center my-2">
-                    <div class="badge badge-secondary p-1 mr-2">
-                      {{mod.downloads.count}} Downloads
-                    </div>
-                  </div>
-                    <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
-                  <div class="hover-buttons">
-                    <span class="btn btn-hover iq-button"
-                      ><i class="fa fa-play mr-1" aria-hidden="true"></i>
-                      Download
-                    </span>
-                  </div>
-                </div>
-                {% comment %} <div class="block-social-info">
-                  <ul class="list-inline p-0 m-0 music-play-lists">
-                    <li class="share">
-                      <span><i class="ri-share-fill"></i></span>
-                      <div class="share-box">
-                        <div class="d-flex align-items-center">
-                          <a
-                            href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-facebook-fill"></i
-                          ></a>
-                          <a
-                            href="https://twitter.com/intent/tweet?text=Currentlyreading"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-twitter-fill"></i
-                          ></a>
-                          <a
-                            href="#"
-                            data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            class="share-ico iq-copy-link"
-                            tabindex="0"
-                            ><i class="ri-links-fill"></i
-                          ></a>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <span><i class="ri-heart-fill"></i></span>
-                      <span class="count-box">19+</span>
-                    </li>
-                  </ul>
-                </div> {% endcomment %}
+              </div>
+              <span class="text-white"
+                >{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span
+              >
+              <div class="hover-buttons">
+                <span class="btn btn-hover iq-button"
+                  ><i class="fa fa-play mr-1" aria-hidden="true"></i>
+                  Download
+                </span>
               </div>
             </div>
-            {%endfor%}
+            {% comment %}
+            <div class="block-social-info">
+              <ul class="list-inline p-0 m-0 music-play-lists">
+                <li class="share">
+                  <span><i class="ri-share-fill"></i></span>
+                  <div class="share-box">
+                    <div class="d-flex align-items-center">
+                      <a
+                        href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="share-ico"
+                        tabindex="0"
+                        ><i class="ri-facebook-fill"></i
+                      ></a>
+                      <a
+                        href="https://twitter.com/intent/tweet?text=Currentlyreading"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="share-ico"
+                        tabindex="0"
+                        ><i class="ri-twitter-fill"></i
+                      ></a>
+                      <a
+                        href="#"
+                        data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
+                        class="share-ico iq-copy-link"
+                        tabindex="0"
+                        ><i class="ri-links-fill"></i
+                      ></a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span><i class="ri-heart-fill"></i></span>
+                  <span class="count-box">19+</span>
+                </li>
+              </ul>
+            </div>
+            {% endcomment %}
           </div>
         </div>
+        {%endfor%}
+      </div>
+    </div>
+  </section>
 </div>
-</section>
-{% endblock %}
+{% else %}
+<div class="main-content container-fluid" style="padding-top: 250px">
+  <h3>Simulator not found!</h3>
+  <br /><br />
+  <p>The simulator you tried viewing does not exist in our system.</p>
+  <br />
+
+  <div class="sign-info">
+    <a href="{% url 'authentication:index' %}" class="btn btn-hover"
+      >Take me back home</a
+    >
+  </div>
+</div>
+{% endif %} {% endblock %}

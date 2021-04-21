@@ -3,11 +3,14 @@ from .models import Mod, Type
 
 
 class ModCreateForm(forms.ModelForm):
-    type_ = forms.ModelChoiceField(queryset=Type.objects.all().distinct())
+    simulator_ = forms.ModelChoiceField(queryset=Type.objects.all().distinct())
+    screenshots = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple':
+                                                                   True}))
+    agree_to_terms_and_conditions = forms.BooleanField(required=True)
 
     class Meta:
         model = Mod
-        fields = ['title', 'type_', 'description', 'image', 'cover_image', 'mod_file']
+        fields = ['title', 'simulator_', 'description',  'header_image', 'cover_image','screenshots', 'mod_file']
         exclude = ('user',)
 
     def __init__(self, *args, **kwargs):

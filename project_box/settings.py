@@ -149,6 +149,23 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'authentication:login'
 AUTH_USER_MODEL = "authentication.User"
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tiny_mce")
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 300,
+    'plugins': "image,imagetools,media,codesample,link,code",
+    'cleanup_on_startup': True,
+    'menubar': False,
+    'toolbar': "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
+    'image_caption': True,
+    'image_advtab': True,
+    'custom_undo_redo_levels': 10,
+    'file_browser_callback': "myFileBrowser",
+}
+
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']

@@ -13,13 +13,27 @@
     <div
       class="row justify-content-center align-items-center height-self-center"
     >
-      <div class="col-lg-6 col-md-12 align-self-center mt-8">
+      <div class="col-lg-8 col-md-12 align-self-center mt-8 p-5">
         <div class="sign-user_card">
           <div class="sign-in-page-data">
             <div class="sign-in-from w-100 m-auto">
               <h3 class="text-center">Create a Mod</h3>
+              {{ form.media }}
               <form class="mt-12" method="post" enctype="multipart/form-data">
                 <br />
+              {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == "success" %}
+              <p class="successField">
+              {{message}}
+              </p>
+              {%else%}
+              <p class="errorField">
+              {{message}}
+              </p>
+              {% endif %}
+              {% endfor %}
+              {%endif%}
                 {% csrf_token %} {{ form|crispy }}
                 <br>
                 <button type="submit" class="btn btn-hover my-2">

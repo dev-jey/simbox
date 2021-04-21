@@ -1,13 +1,14 @@
 import os
 from project_box.apps.mods.resize_mixin import ResizeImageMixin
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from project_box.apps.mods.forms import ModCreateForm
 from django.views.generic.base import TemplateView
-from project_box.apps.mods.models import Mod, Type
+from project_box.apps.mods.models import Mod, Screenshot, Type
 import uuid
+from django.contrib import messages
 from project_box.storage_backends import MediaStorage
 
 
@@ -16,7 +17,7 @@ class ModDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        mod_id= kwargs['pk']
+        mod_id = kwargs['pk']
         mod = Mod.objects.filter(id=mod_id).first()
         context['user'] = self.request.user
         context['mod'] = mod
@@ -45,10 +46,15 @@ class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
 
     def form_valid(self, form):
         self.mod_file = self.request.FILES['mod_file']
-        self.image = self.request.FILES['image']
+        self.header_image = self.request.FILES['header_image']
+        self.screenshots = self.request.FILES.getlist('screenshots')
+        if len(self.screenshots) > 12:
+            messages.error(
+                self.request, 'A maximum of 12 screenshots is allowed.')
+            return self.form_invalid(form)
         self.cover_image = self.request.FILES['cover_image']
         # Upload items to aws, store in well organized folders
-        self.compressed_image = self.resize(self.image, (550, 400))
+        self.compressed_image = self.resize(self.header_image, (550, 400))
         image_url = self.validate_and_upload_files(self.compressed_image, self.request.user, 'image')
         self.compressed_cover_image = self.resize(self.cover_image, (800, 600))
         cover_image_url = self.validate_and_upload_files(self.compressed_cover_image, self.request.user, 'image')
@@ -58,7 +64,11 @@ class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
         self.object.cover_image = cover_image_url
         self.object.mod_file = mod_file_url
         self.object.save()
-        form.cleaned_data['type_'].mods.add(self.object)
+        form.cleaned_data['simulator_'].mods.add(self.object)
+        for f in self.screenshots:
+            instance = Screenshot(image=f)
+            instance.save()
+            self.object.screenshots.add(instance)
         self.request.user.mods.add(self.object)
         return HttpResponseRedirect(self.get_success_url())
 
@@ -118,11 +128,13 @@ class CategoryView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = Type.objects.filter(id=self.kwargs['pk']).first()
-        category_mods = category.mods.all()
+        if category:
+            category_mods = category.mods.all()
+        else:
+            category_mods = []
         top_category_mods = category_mods[:10]
         context['user'] = self.request.user
         context['category'] = category
         context['category_mods'] = category_mods
         context['top_category_mods'] = top_category_mods
-
         return context
