@@ -3,6 +3,7 @@ from project_box.apps.mods.models import Type
 
 
 def categories_processor(request):
+    context = {}
     try:
         types = Type.objects.all()
         msfs = types.filter(name='MSFS').first()
