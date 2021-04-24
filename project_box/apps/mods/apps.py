@@ -3,7 +3,4 @@ from django.apps import AppConfig
 
 
 class ModsConfig(AppConfig):
-    name = 'mods'
-
-    def ready(self):
-        import mods.signals
+    name = 'project_box.apps.mods'
