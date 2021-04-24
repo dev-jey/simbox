@@ -118,9 +118,6 @@ media/
 .VSCodeCounter/
 datapase.png
 
-#Static files except styles
-static/css/**
-!static/css/style.min.css
-!static/media/**
+#Static files 
 staticfiles/
 
