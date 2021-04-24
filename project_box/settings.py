@@ -187,7 +187,6 @@ FILE_UPLOAD_HANDLERS = ("django.core.files.uploadhandler.MemoryFileUploadHandler
 TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tinymce.min.js")
 TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tiny_mce")
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 300,
