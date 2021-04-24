@@ -136,11 +136,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static/"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static/"),
+# )
 
-STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -150,23 +150,6 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'authentication:login'
 AUTH_USER_MODEL = "authentication.User"
-
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tinymce.min.js")
-TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tiny_mce")
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-TINYMCE_DEFAULT_CONFIG = {
-    'height': 300,
-    'plugins': "image,imagetools,media,codesample,link,code",
-    'cleanup_on_startup': True,
-    'menubar': False,
-    'toolbar': "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
-    'image_caption': True,
-    'image_advtab': True,
-    'custom_undo_redo_levels': 10,
-    'file_browser_callback': "myFileBrowser",
-}
 
 
 REST_FRAMEWORK = {
@@ -199,3 +182,21 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'project_box.storage_backends.MediaStorage'  # <-- here is where we reference it
 FILE_UPLOAD_HANDLERS = ("django.core.files.uploadhandler.MemoryFileUploadHandler",
                         "django.core.files.uploadhandler.TemporaryFileUploadHandler",)
+
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tiny_mce")
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 300,
+    'plugins': "image,imagetools,media,codesample,link,code",
+    'cleanup_on_startup': True,
+    'menubar': False,
+    'toolbar': "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
+    'image_caption': True,
+    'image_advtab': True,
+    'custom_undo_redo_levels': 10,
+    'file_browser_callback': "myFileBrowser",
+}
