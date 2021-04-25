@@ -18,7 +18,7 @@ def categories_processor(request):
             'p3d': p3d,
             'categories': types
         }
-        context['featured'] = random.choice([context['x_plane_mods'], context['p3d_mods'], context['msfs_mods']][0])
+        context['featured'] = random.choice([context['x_plane_mods'], context['p3d_mods'], context['msfs_mods']])[0]
     except BaseException as e:
         print(e)
         context['error'] = "No Mods Found"
