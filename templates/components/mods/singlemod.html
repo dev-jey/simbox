@@ -62,7 +62,7 @@
             <span class="text-gold ml-3">#2 in Most Downloaded Today</span>
           </div>
           {% endcomment %}
-          <p class="trending-dec w-100 mb-0">{{mod.description}}</p>
+          <p class="trending-dec w-100 mb-0">{{mod.description|safe}}</p>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
               <div class="epi-box">
                 <div class="epi-img position-relative">
                   <img
-                    src="{{mod.image.url}}"
+                    src="{{mod.header_image.url}}"
                     class="img-fluid img-zoom"
                     alt=""
                   />

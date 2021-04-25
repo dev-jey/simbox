@@ -190,10 +190,10 @@ TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tiny_mce")
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 300,
-    'plugins': "image,imagetools,media,codesample,link,code",
+    'plugins': "image,imagetools,textcolor,media,codesample,link,code",
     'cleanup_on_startup': True,
     'menubar': False,
-    'toolbar': "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
+    'toolbar': "styleselect |undo redo | bold italic | alignleft aligncenter alignright | forecolor backcolor | link image media codesample code",
     'image_caption': True,
     'image_advtab': True,
     'custom_undo_redo_levels': 10,

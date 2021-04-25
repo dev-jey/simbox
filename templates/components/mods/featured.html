@@ -10,7 +10,7 @@
 <br>
           <a href="{% url 'mods:mod-detail' featured.id %}">
             <img
-              src="{{featured.image.url}}"
+              src="{{featured.header_image.url}}"
               class="img-fluid"
               alt="{{featured.title}}"
             />
@@ -30,7 +30,7 @@
                   File Size: <span class="text-body">{{featured.mod_file.size | filesizeformat}}</span>
                 </div>
           <p class="text-sm-left">
-            {{featured.description}}
+            {{featured.description|safe}}
           </p>
           <div class="parallax-buttons">
             <a href="{% url 'mods:mod-detail' featured.id %}" class="btn btn-hover">Download</a>
