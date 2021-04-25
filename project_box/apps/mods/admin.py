@@ -18,13 +18,18 @@ class ModAdmin(admin.ModelAdmin):
     )
     search_fields = ['title']
 
-    def save_model(self, request, obj, form, change):
-        if not obj.id:
-            obj.author = request.user
-        super(ModAdmin, self).save_model(request, obj, form, change)
-
     class Meta:
         model = Mod
+
+
+class TypesAdmin(admin.ModelAdmin):
+    model = Type
+    search_fields = ['name']
+    list_display = (
+        "name",
+        "created_at",
+        "updated_at"
+    )
 
 
 class ModCommentsAdmin(admin.ModelAdmin):
@@ -46,6 +51,6 @@ class ModsDownloadsCounterAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Mod, ModAdmin)
-admin.site.register(Type)
+admin.site.register(Type, TypesAdmin)
 admin.site.register(Comment, ModCommentsAdmin)
 admin.site.register(Download, ModsDownloadsCounterAdmin)

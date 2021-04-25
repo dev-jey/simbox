@@ -28,6 +28,7 @@ class Screenshot(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 class Mod(models.Model):
     title = models.CharField(max_length=120)
     header_image = models.ImageField(
@@ -68,7 +69,7 @@ class Type(models.Model):
     categorization of mods.
     '''
     name = models.CharField(max_length=100)
-    mods = models.ManyToManyField(Mod, related_name='type_mods')
+    mods = models.ManyToManyField(Mod, related_name='type_mods', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
