@@ -12,7 +12,8 @@ from .views import (
     SignUpView,
     UserUpdateView,
     ProfileModsAPIView,
-    CustomLoginView
+    CustomLoginView,
+    ContactView
 )
 
 # Specify a namespace
@@ -50,4 +51,7 @@ urlpatterns = [
     path('terms/',
          TemplateView.as_view(template_name="components/extras/terms.html"),
          name='terms'),
+    path('contact/',
+         ContactView.as_view(),
+         name='contact'),
 ]

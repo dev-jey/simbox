@@ -19,7 +19,7 @@ from django.urls.base import reverse
 from django.views.generic.base import TemplateView
 from .forms import LoginForm, UserRegisterForm, UserUpdateForm
 from project_box.apps.mods.models import Mod, Type
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ContactForm
 from django.views.generic.edit import CreateView
 from django.contrib import messages
 
@@ -32,6 +32,7 @@ class UserUpdateView(PasswordChangeView):
     success_url = reverse_lazy('authentication:profile')
     form_class = UserUpdateForm
     success_message = "Profile Updated Successfully Successful"
+
 
 class CustomLoginView(LoginView):
     """
@@ -150,3 +151,30 @@ class ProfileModsAPIView(TemplateView):
 
         context['user'] = User.objects.filter(username=kwargs['username']).first()
         return context
+
+
+class ContactView(CreateView):
+    template_name = 'components/extras/contact.html'
+    success_url = reverse_lazy('authentication:contact')
+    form_class = ContactForm
+    success_message = "A message has been sent successfully"
+
+    def send_contact_message(self, username, email, description):
+        sender = email
+        email_subject = "Simbox Help Center"
+        message = render_to_string('components/user/email/contact.html', {
+            'title': email_subject,
+            'email': email,
+            'username': username,
+            'message': description
+        })
+        send_mail(email_subject, '', sender, [os.getenv("EMAIL_HOST_USER"), ], html_message=message)
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('name')
+        email = form.cleaned_data.get('email')
+        description = form.cleaned_data.get('description')
+        self.send_contact_message(username, email, description)
+        messages.success(
+            self.request, 'The message has been sent successfully. We will respond soon.')
+        return super(ContactView, self).form_valid(form)
