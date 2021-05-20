@@ -63,13 +63,27 @@ class Mod(models.Model):
         return self.title
 
 
+class SubType(models.Model):
+    '''
+    Table with mod types (eg. Scenery, Airplane etc.) for
+    categorization of mods.
+    '''
+    name = models.CharField(max_length=100)
+    mods = models.ManyToManyField(Mod, related_name='sub_type_mods', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Type(models.Model):
     '''
     Table with mod types (eg. Scenery, Airplane etc.) for
     categorization of mods.
     '''
     name = models.CharField(max_length=100)
-    mods = models.ManyToManyField(Mod, related_name='type_mods', blank=True)
+    subtypes = models.ManyToManyField(SubType, related_name='type_sub_types', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
