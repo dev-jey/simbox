@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import (
     Mod,
+    SubType,
     Type,
     Comment,
     Download
@@ -20,6 +21,19 @@ class ModAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Mod
+
+
+class SubTypeAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'created_at',
+        'updated_at'
+    )
+    search_fields = ['name']
+
+    class Meta:
+        model = SubType
 
 
 class TypesAdmin(admin.ModelAdmin):
@@ -54,3 +68,4 @@ admin.site.register(Mod, ModAdmin)
 admin.site.register(Type, TypesAdmin)
 admin.site.register(Comment, ModCommentsAdmin)
 admin.site.register(Download, ModsDownloadsCounterAdmin)
+admin.site.register(SubType, SubTypeAdmin)

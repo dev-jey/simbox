@@ -54,10 +54,8 @@ class AddModView(LoginRequiredMixin, CreateView, ResizeImageMixin):
             return self.form_invalid(form)
         self.cover_image = self.request.FILES['cover_image']
         # Upload items to aws, store in well organized folders
-        self.compressed_image = self.resize(self.header_image, (550, 400))
-        image_url = self.validate_and_upload_files(self.compressed_image, self.request.user, 'image')
-        self.compressed_cover_image = self.resize(self.cover_image, (800, 600))
-        cover_image_url = self.validate_and_upload_files(self.compressed_cover_image, self.request.user, 'image')
+        image_url = self.validate_and_upload_files(self.header_image, self.request.user, 'image')
+        cover_image_url = self.validate_and_upload_files(self.cover_image, self.request.user, 'image')
         mod_file_url = self.validate_and_upload_files(self.mod_file, self.request.user)
         self.object = form.save(commit=False)
         self.object.image = image_url
@@ -116,9 +114,9 @@ class ModsListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        mods = Mod.objects.all().order_by('-title')
+        mods = Type.objects.all().order_by('-name')
         context['user'] = self.request.user
-        context['mods'] = mods[:10]
+        context['mods'] = mods
         return context
 
 
@@ -129,12 +127,28 @@ class CategoryView(TemplateView):
         context = super().get_context_data(**kwargs)
         category = Type.objects.filter(id=self.kwargs['pk']).first()
         if category:
-            category_mods = category.mods.all()
+            category_mods = category.subtypes.all()
         else:
             category_mods = []
-        top_category_mods = category_mods[:10]
         context['user'] = self.request.user
         context['category'] = category
         context['category_mods'] = category_mods
-        context['top_category_mods'] = top_category_mods
+        return context
+
+
+class SubTypeView(TemplateView):
+    template_name = 'components/mods/snippets/subtype.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        import pdb
+        pdb.set_trace()
+        category = Type.objects.filter(id=self.kwargs['pk']).first()
+        if category:
+            category_mods = category.subtypes.all()
+        else:
+            category_mods = []
+        context['user'] = self.request.user
+        context['category'] = category
+        context['category_mods'] = category_mods
         return context

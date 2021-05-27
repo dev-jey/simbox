@@ -7,7 +7,8 @@ from django.urls import path
 from .views import (
     CategoryView,
     ModDetailView,
-     AddModView,
+    AddModView,
+    SubTypeView,
     # EditModView,
     # DeleteModView,
     ModsListView
@@ -20,6 +21,7 @@ urlpatterns = [
     # Mods link
     path(f'<int:pk>/', ModDetailView.as_view(), name='mod-detail'),
     path(f'simulator/<int:pk>/', CategoryView.as_view(), name='category'),
+    path(f'simulator/type/<int:pk>/', SubTypeView.as_view(), name='subtype'),
     path(f'upload/', AddModView.as_view(), name='create-mod'),
     # path(f'<int:pk>/update/', EditModView.as_view(), name='edit-mod'),
     # path(f'<int:pk>/delete/', DeleteModView.as_view(), name='delete-mod'),

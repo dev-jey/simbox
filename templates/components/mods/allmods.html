@@ -1,86 +1,31 @@
 {% extends 'base.html' %} {% block maincontent %} {% load static %}
 <div class="top-split" style="padding:150px 0">
 
-{% include 'components/mods/snippets/msfs.html' %}
-{% include 'components/mods/snippets/p3d.html' %}
-{% include 'components/mods/snippets/x-plane.html' %}
-
-
-<section class="main-content container-fluid">
-          <h4 class="main-title">All Mods</h4>
- <div class="block-space">
-          <div class="row">
-          {%for mod in mods%}
-            <div class="col-md-3 col-sm-12 iq-mb-30">
-              <div class="block-images position-relative">
-                <div class="img-box" style="background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 20, 0.4) 50%, rgba(83, 100, 141, 0) 100% );">
-                  <img
-                    src="{{mod.header_image.url}}"
-                    class="img-fluid"
-                    alt="{{mod.title}}"
-                  />
-                </div>
-                
-                <div class="block-description">
-                  <h6 class="iq-title"><br>
-                    <a href="{% url 'mods:mod-detail' mod.id %}">{{mod.title}}</a>
-                  </h6>
-                  <div class="movie-time d-flex align-items-center my-2">
-                    <div class="badge badge-secondary p-1 mr-2">
-                      {{mod.downloads.count}} Downloads
-                    </div>
-                  </div>
-                    <span class="text-white">{% for typ in mod.type_mods.all %} | {{typ}}{% endfor %}</span>
-                  <div class="hover-buttons">
-                    <a class="btn btn-hover iq-button"  href="{% url 'mods:mod-detail' mod.id %}"
-                      ><i class="fa fa-play mr-1" aria-hidden="true"></i>
-                      Download
-                    </a>
-                  </div>
-                </div>
-                {% comment %} <div class="block-social-info">
-                  <ul class="list-inline p-0 m-0 music-play-lists">
-                    <li class="share">
-                      <span><i class="ri-share-fill"></i></span>
-                      <div class="share-box">
-                        <div class="d-flex align-items-center">
-                          <a
-                            href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-facebook-fill"></i
-                          ></a>
-                          <a
-                            href="https://twitter.com/intent/tweet?text=Currentlyreading"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="share-ico"
-                            tabindex="0"
-                            ><i class="ri-twitter-fill"></i
-                          ></a>
-                          <a
-                            href="#"
-                            data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                            class="share-ico iq-copy-link"
-                            tabindex="0"
-                            ><i class="ri-links-fill"></i
-                          ></a>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <span><i class="ri-heart-fill"></i></span>
-                      <span class="count-box">19+</span>
-                    </li>
-                  </ul>
-                </div> {% endcomment %}
+  <section class="main-content container-fluid">
+    <h4 class="main-title">All Simulators</h4>
+    <br>
+    <br>
+    <br>
+    <div class="upcoming-contens">
+      <ul class="favorites-slider list-inline row p-0 mb-0">
+        {% for mod in mods %}
+        <li class="slide-item">
+          <a href="{% url 'mods:category' mod.id %}">
+            <div class="block-images position-relative">
+              <div class="img-box">
+                <img src="https://simbox-static.s3.us-east-2.amazonaws.com/others/pexels-mitchell-luo-3694711.jpg"
+                  class="img-fluid" alt="" />
+              </div>
+              <div class="block-description">
+                <h6 class="iq-title">
+                  {{mod.name}}
+                </h6>
               </div>
             </div>
-            {%endfor%}
-          </div>
-        </div>
-</div>
-</section>
-{% endblock %}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endblock %}
