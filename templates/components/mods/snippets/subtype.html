@@ -1,12 +1,11 @@
 {% extends 'base.html' %} {% block maincontent %}{% load static %}
 <section id="iq-upcoming-movie mt-8">
-  <div class="container-fluid">
+  <div class="container-fluid" class="top-split" style="padding-top:150px">
     <div class="row">
       <div class="col-sm-12 overflow-hidden">
         <div class="iq-main-header d-flex align-items-center justify-content-between">
           <h4 class="main-title">{{category.name}} > {{subtype.name}} Add-Ons</h4>
         </div><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="upcoming-contens">
           <ul class="favorites-slider list-inline row p-0 mb-0">
             {% for mod in mods %}

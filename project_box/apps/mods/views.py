@@ -143,8 +143,8 @@ class SubTypeView(TemplateView):
         context = super().get_context_data(**kwargs)
         mods = Mod.objects.filter(sub_type_mods=self.kwargs['type_']).filter(
             sub_type_mods__type_sub_types=self.kwargs['sim'])
-        category = Type.objects.filter(id=self.kwargs['sim'])
-        subtype = SubType.objects.filter(id=self.kwargs['sim'])
+        category = Type.objects.filter(id=self.kwargs['sim']).first()
+        subtype = SubType.objects.filter(id=self.kwargs['type_']).first()
         context['user'] = self.request.user
         context['category'] = category
         context['subtype'] = subtype
