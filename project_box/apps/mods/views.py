@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from project_box.apps.mods.forms import ModCreateForm
 from django.views.generic.base import TemplateView
-from project_box.apps.mods.models import Mod, Screenshot, Type
+from project_box.apps.mods.models import Mod, Screenshot, Type, SubType
 import uuid
 from django.contrib import messages
 from project_box.storage_backends import MediaStorage
@@ -141,14 +141,12 @@ class SubTypeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        import pdb
-        pdb.set_trace()
-        category = Type.objects.filter(id=self.kwargs['pk']).first()
-        if category:
-            category_mods = category.subtypes.all()
-        else:
-            category_mods = []
+        mods = Mod.objects.filter(sub_type_mods=self.kwargs['type_']).filter(
+            sub_type_mods__type_sub_types=self.kwargs['sim'])
+        category = Type.objects.filter(id=self.kwargs['sim'])
+        subtype = SubType.objects.filter(id=self.kwargs['sim'])
         context['user'] = self.request.user
         context['category'] = category
-        context['category_mods'] = category_mods
+        context['subtype'] = subtype
+        context['mods'] = mods
         return context

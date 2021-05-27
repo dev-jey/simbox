@@ -15,11 +15,10 @@
             <ul class="favorites-slider list-inline row p-0 mb-0">
               {% for mod in category_mods %}
               <li class="slide-item">
-                <a href="{% url 'mods:subtype' mod.id %}">
+                <a href="{% url 'mods:subtype' sim=category.id type_=mod.id %}">
                   <div class="block-images position-relative">
                     <div class="img-box">
-                      <img src="https://simbox-static.s3.us-east-2.amazonaws.com/others/pexels-mitchell-luo-3694711.jpg"
-                        class="img-fluid" alt="" />
+                      <img src="{% static 'images/favorite/04.png' %}" class="img-fluid" alt="" />
                     </div>
                     <div class="block-description">
                       <h6 class="iq-title">
